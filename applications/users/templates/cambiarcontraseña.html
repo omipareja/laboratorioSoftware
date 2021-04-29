@@ -1,5 +1,5 @@
 {% extends 'base_login.html' %}
-{% load widget_tweaks %}
+
 {% block content %}
     <div class="login-box">
   <div class="login-logo">
@@ -8,25 +8,20 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
-
+        <p class="login-box-msg">Actualizacion de contraseña</p>
       <form  method="post" class="form-group"> {% csrf_token %}
             <div class="form-group">
-                <label>Usuario</label>
-                {{ form.username }}
-            </div>
-          <div class="form-group">
-                <label>Contraseña</label>
+                <label>Contraseña nueva</label>
                 {{ form.password1 }}
             </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar Secion</button>
+          <div class="form-group">
+                <label>Cambiar la contraseña</label>
+                {{ form.password2 }}
+            </div>
+          <button type="submit" class="btn btn-primary btn-lg btn-block">Cambiar Contraseña</button>
       </form>
 
       <!-- /.social-auth-links -->
-
-      <p class="mb-1">
-        <a href="{% url 'users:reset-password' %}"  >Olvide mi contraseña</a>
-      </p>
 
     </div>
     <!-- /.login-card-body -->

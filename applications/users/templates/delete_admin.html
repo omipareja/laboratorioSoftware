@@ -1,0 +1,30 @@
+{% extends 'body.html' %}
+{% block content %}
+            <div class="card ">
+            <div class="card-header with-border">
+              <i class="fa fa-warning"></i>
+
+              <h3 class="card-title"><i class="fas fa-user"></i> Eliminar  Usuario Administrador </h3>
+            </div>
+            <!-- /.box-header -->
+
+                <form method="post" >
+                    <div class="card-body">
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                            <p>
+                            ¿Esta seguro de eliminar al Administrador {{ object }}?
+                            </p>
+                            <p>
+                                Esta action es irreversible
+                            </p>
+                      </div>
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                        <a href="{% url 'users:listar-admin' %}" class="btn btn-secondary" role="button" data-bs-toggle="button">Regresar</a>
+                    </div>
+                </form>
+
+
+        </div>
+{% endblock %}

@@ -20,6 +20,8 @@ class UserManager(BaseUserManager,models.Manager):
     def create_user(self,username,email,password=None,**extra_fields):
         return self._create_user(username,email,1,password,False,False,**extra_fields)
 
+    def create_admin(self,username,email,password=None,**extra_fields):
+        return self._create_user(username,email,2,password,False,False,**extra_fields)
 
 
     def create_superuser(self,username,email,nivel_accesibilidad=3,password=None,**extra_fields):

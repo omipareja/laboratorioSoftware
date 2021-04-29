@@ -1,0 +1,88 @@
+{% extends 'body.html' %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="card ">
+            <div class="card-header with-border">
+              <i class="fa fa-warning"></i>
+
+              <h3 class="card-title"><i class="fas fa-user"></i> Actualizacion de usuario</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="card-body">
+                        <form class="form-group" method="post" enctype="multipart/form-data"> {% csrf_token %}
+            <div class="container" >
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Username</label>
+                              {{ form.username }}
+                          </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Email</label>
+                            {{ form.email }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Nombres</label>
+                          {{ form.nombres }}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Apellidos</label>
+                          {{ form.apellidos }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Fecha Nacimiento</label>
+                            {{ form.fecha_nacimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>lugar Nacimiento</label>
+                            {{ form.lugar_nacimiento }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>DNI</label>
+                          {{ form.dni|attr:"class:form-control"|attr:"required:True" }}
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                          <label>Preferencias</label>
+                          {{ form.categoria|attr:"class:form-control" }}
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label>Avatar</label>
+                            {{ form.avatar|attr:"class:forn-control" }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary  btn-lg btn-block">Actualizar</button>
+
+        </form>
+
+            </div>
+            <!-- /.box-body -->
+          </div>
+{% endblock %}

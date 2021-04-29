@@ -23,8 +23,22 @@
         </div>
         <nav class="mt-2">
             {% if user.nivel_accesibilidad == 3 %}
-                <div class="p-3 mb-2 bg-danger text-white"><p>No tiene permisos en este modulo</p></div>
+                <li class="nav-item">
+                    <a href="{% url 'users:añadir-admin' %}" class="nav-link">
 
+                        <p>
+                           <i class="fas fa-address-card"></i> Crear Administrador
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{% url 'users:listar-admin' %}" class="nav-link">
+
+                        <p>
+                           <i class="fas fa-trash-alt"></i> Eliminar Administrador
+                        </p>
+                    </a>
+                </li>
             {% endif %}
 
             {% if user.nivel_accesibilidad == 1 %}

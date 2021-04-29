@@ -1,0 +1,36 @@
+{% extends 'body.html' %}
+{% block content %}
+        <div class="card ">
+            <div class="card-header with-border">
+              <i class="fa fa-warning"></i>
+
+              <h3 class="card-title"><i class="fas fa-user"></i> Listado de usuarios administradores </h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="card-body">
+                <table class="table">
+                  <thead class="table-light">
+                    <tr>
+                        <th>Username</th>
+                        <th>Nombres</th>
+                        <th>Apellidos</th>
+                        <th>Email</th>
+                        <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for a in admin%}
+                        <tr>
+                            <td>{{ a.username }}</td>
+                            <td>{{ a.nombres}}</td>
+                            <td>{{ a.apellidos }}</td>
+                            <td>{{ a.email }}</td>
+                            <td><a href="{% url 'users:eliminar-admin' a.pk %}" class="btn btn-danger" >Eliminar</a></td>
+                        </tr>
+                    {% endfor %}
+
+                  </tbody>
+                </table>
+            </div>
+        </div>
+{% endblock %}

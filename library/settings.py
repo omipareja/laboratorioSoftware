@@ -139,3 +139,12 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+#configuracion envio de correos
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT =587
+EMAIL_HOST_USER = 'djangosamakun@gmail.com'
+EMAIL_HOST_PASSWORD = '#123456789#'
+
+DOMAIN = ''

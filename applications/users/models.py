@@ -17,6 +17,7 @@ class User(AbstractBaseUser,PermissionsMixin):
     categoria = models.ManyToManyField(Category,blank=True)
     avatar = models.ImageField(upload_to='avatares',blank=True,null=True)
     nivel_accesibilidad = models.IntegerField()
+    token = models.UUIDField(primary_key=False,editable=False,null=True,blank=True)
     #propios de Abstrac
     is_staff = models.BooleanField(default=False)
 
