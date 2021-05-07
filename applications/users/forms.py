@@ -87,7 +87,7 @@ class LoginForm(forms.Form):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder':'Contraseña',
+                'placeholder':'Usuario',
                 'class': 'form-control',
                 'autocomplete': 'off'
             }

@@ -1,35 +1,27 @@
-{% extends 'base_login.html' %}
-{% load widget_tweaks %}
-{% block content %}
-    <div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Library</b>UTP</a>
-  </div>
-  <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+{% extends 'base.html' %}
 
-      <form  method="post" class="form-group"> {% csrf_token %}
-            <div class="form-group">
-                <label>Usuario</label>
-                {{ form.username }}
-            </div>
-          <div class="form-group">
-                <label>Contraseña</label>
-                {{ form.password1 }}
-            </div>
-          <button type="submit" class="btn btn-primary btn-lg btn-block">Iniciar Secion</button>
-      </form>
+{% block body %}
+<body>
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
 
-      <!-- /.social-auth-links -->
+    {% block content %}
 
-      <p class="mb-1">
-        <a href="{% url 'users:reset-password' %}"  >Olvide mi contraseña</a>
-      </p>
-
+    <div class="container">
+        <div class="container">
+            <h4>Iniciar Sesión</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+        </div>
+        <div class="container">
+            <form id="loginForm" method="post"> {% csrf_token %}
+                <div class="form-group"> {{ form.username }} </div>
+                <div class="form-group"> {{ form.password1 }}</div>
+                <div class="form-group"><button class="btn btn-primary btn-block" id="btnLogin" type="submit">Iniciar Sesión</button></div><a class="forgot" href="#">¿Olvidaste tu contraseña?</a>
+            </form>
+        </div>
     </div>
-    <!-- /.login-card-body -->
-  </div>
-</div>
+
+    {% endblock %}
+</body>
+
 {% endblock %}
