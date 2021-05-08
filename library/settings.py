@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'applications.prueba',
     'applications.users',
     'applications.libros',
+    'applications.home'
 
 ]
 

@@ -22,16 +22,6 @@ from django.views.generic import CreateView, FormView, TemplateView, UpdateView,
 from .models import User as usuario
 from .forms import *
 
-def index(request):
-    return render(request, 'index.html', {'currentUrl' : 'inicio'})
-
-def noticias(request):
-    return render(request, 'noticias.html',  {'currentUrl' : 'noticias'})
-
-def contacto(request):
-    return render(request, 'contacto.html',  {'currentUrl' : 'contacto'})
-
-
 class UserRegisterView(FormView):
     template_name = 'registro.html'
     form_class = UserRegisterForm
@@ -60,12 +50,12 @@ class UserRegisterView(FormView):
 class LoginUser(FormView):
     template_name = 'login.html'
     form_class = LoginForm
-    success_url = reverse_lazy('users:index')
+    success_url = reverse_lazy('home:index')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
-            return redirect(reverse_lazy('users:index'))
+            return redirect(reverse_lazy('home:index'))
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
