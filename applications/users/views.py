@@ -74,7 +74,7 @@ class LogoutView(View):
     def get(self,request,*args,**kwargs):
         logout(request)
         return HttpResponseRedirect(
-            reverse('users:login')
+            reverse('home:index')
         )
 
 class RecuperarContraseña(FormView):
@@ -154,7 +154,7 @@ class UpdateUsuario(LoginRequiredMixin,UpdateView):
     model = usuario
     template_name = 'UpdateUser.html'
     form_class = UpdateUserForm
-    success_url = reverse_lazy('pruebas:prueba')
+    success_url = reverse_lazy('home:index')
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -267,7 +267,7 @@ class ListAdminView(LoginRequiredMixin,ValidatePermissionRequiredMixin,ListView)
         #grupo = self.request.user.groups.all()[0]
         #print('grupos',grupo.permissions.filter(codename=self.))
         list = usuario.objects.filter(nivel_accesibilidad=2)
-        return  list
+        return list
 
 class DeleteAdmin(LoginRequiredMixin,DeleteView):
     model = usuario
