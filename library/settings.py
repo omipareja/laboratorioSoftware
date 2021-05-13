@@ -44,7 +44,9 @@ INSTALLED_APPS = [
     'applications.prueba',
     'applications.users',
     'applications.libros',
-    'applications.home'
+    'applications.home',
+    'applications.tarjetas',
+    'applications.compras'
 
 ]
 
