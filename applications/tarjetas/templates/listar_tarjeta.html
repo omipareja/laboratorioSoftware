@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <tr>
+          <td><strong>Numero</strong></td>
+          <td><strong>Fecha vencimiento</strong></td>
+          <td><strong>Saldo</strong></td>
+          <td><strong>Opciones</strong></td>
+          <td><strong>Aumentar</strong></td>
+
+        </tr>
+        {% for tarjeta in tarjetas %}
+            <tr>
+                <td>{{tarjeta.numero }}</td>
+                <td>{{ tarjeta.fecha_vencimiento }}</td>
+                <td>{{ tarjeta.saldo }}</td>
+                <td><a  href="{% url 'tarjetas:eliminar_tarjeta' tarjeta.pk %}">Eliminar</a> <a class="button"  href="#">Actualizar</a> </td>
+                <td><a class="button" href="{% url 'tarjetas:aumentar_Saldo' tarjeta.pk %}">Aumentar</a></td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

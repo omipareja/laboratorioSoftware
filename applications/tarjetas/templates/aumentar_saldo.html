@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <p> Hola {{ user.nombres }} Estas seguro de querer aumentar el saldo para la tarjeta {{ object.numero }}?</p>
+        {{ form.as_p }}
+        <button type="submit">Aumentar</button>
+        <button href="{% url 'tarjetas:list_tarjeta' %}">cancelar</button>
+    </form>
+</body>
+</html>

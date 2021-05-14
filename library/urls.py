@@ -23,4 +23,7 @@ urlpatterns = [
     path('', include('applications.prueba.urls')),
     path('', include('applications.users.urls')),
     path('', include('applications.home.urls')),
+    path('', include('applications.libros.urls')),
+    path('', include('applications.tarjetas.urls')),
+    path('', include('applications.compras.urls')),
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

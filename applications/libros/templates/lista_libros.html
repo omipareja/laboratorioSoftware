@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table style="width:40%">
+  <tr>
+    <th>ISBN</th>
+    <th>Autor</th>
+    <th>titulo</th>
+    <th>categoria</th>
+    <th>Idioma</th>
+    <th>estado</th>
+    <th>precio</th>
+    <th>stock</th>
+    <th>Opciones</th>
+  </tr>
+      {% for libro in libros %}
+        <tr>
+           <td>{{ libro.isbn }}</td>
+           <td>{{ libro.autor}}</td>
+           <td>{{ libro.titulo}}</td>
+           <td>
+               {% for cat in libro.categoria.all %}
+                    {{ cat }}
+               {% endfor %}
+
+           </td>
+           <td>{{ libro.idioma}}</td>
+           <td>{{ libro.estado}}</td>
+           <td>{{ libro.precio}}</td>
+           <td>{{ libro.stock}}</td>
+           <td><a type="button" href="{% url 'libros:update_libro' libro.pk %}">Editar</a> <a type="button" href="{% url 'libros:eliminar_libro' libro.pk %}">Eliminar</a></td>
+        </tr>
+      {% endfor %}
+
+</table>
+</body>
+</html>
