@@ -21,16 +21,21 @@
                     Mi cuenta
                 </button>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    {% if user.nivel_accesibilidad == 2 %}
+                    {% if user.nivel_accesibilidad == 3 %}
                         <p class="ml-2 mb-0"><strong>Administrar</strong></p>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Compras</a>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Libros</a>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Noticias</a>
+                        <a class="dropdown-item btn btn-primary" role="button" href="{% url 'users:listar-admin' %}">Usuarios</a>
                     {% else %}
-                        <p class="ml-2 mb-0"><strong>Administrar</strong></p>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis compras</a>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis reservas</a>
-                        <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis tarjetas</a>
+                        {% if user.nivel_accesibilidad == 2 %}
+                            <p class="ml-2 mb-0"><strong>Administrar</strong></p>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Compras</a>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Libros</a>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Noticias</a>
+                        {% else %}
+                            <p class="ml-2 mb-0"><strong>Administrar</strong></p>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis compras</a>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis reservas</a>
+                            <a class="dropdown-item btn btn-primary disabled" role="button" href="#">Mis tarjetas</a>
+                        {% endif %}
                     {% endif %}
                     <div class="dropdown-divider"></div>
                     <div><p class="ml-2 mb-0"><strong>Opciones de perfil</strong></p></div>
