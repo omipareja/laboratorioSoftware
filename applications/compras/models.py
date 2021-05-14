@@ -7,7 +7,7 @@ from applications.libros.models import Libro
 # Create your models here.
 class Compras(models.Model):
     fecha_compra = models.DateField()
-    cliente = models.ForeignKey(User,on_delete=models.PROTECT)
+    cliente = models.ForeignKey(User,on_delete=models.PROTECT, blank=True, null=True)
     total = models.DecimalField(default=0.00, max_digits=9,decimal_places=3)
 
     def __str__(self):
