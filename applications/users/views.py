@@ -92,9 +92,10 @@ class RecuperarContraseña(FormView):
     def send_email_reset_password(self,user):
 
         try:
-            #obtenemos la url correspondiente
-            url = settings.DOMAIN if  not settings.DEBUG else self.request.META['HTTP_HOST']#si no esta en producion utilice el request
-
+            #url local
+            #url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
+            #url para producion
+            url = settings.DOMAIN
             user.token =  uuid.uuid4()
             user.save()
 
@@ -178,9 +179,10 @@ class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,F
     def send_email_reset_password(self,user,email):
 
         try:
-            #obtenemos la url correspondiente
-            url = settings.DOMAIN if  not settings.DEBUG else self.request.META['HTTP_HOST']#si no esta en producion utilice el request
-
+            #url local
+            #url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
+            #url para producion
+            url = settings.DOMAIN
 
             user.token =  uuid.uuid4()
             user.save()

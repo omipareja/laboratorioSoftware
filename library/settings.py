@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-x@-85wa%$w32=tna%#ro-n174%9ve=!jtv0!9jujb_0_wi$6cq
 
 ########production######
 
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['libraryutp.herokuapp.com']
@@ -168,7 +168,7 @@ EMAIL_PORT =587
 EMAIL_HOST_USER = 'djangosamakun@gmail.com'
 EMAIL_HOST_PASSWORD = '#123456789#'
 
-DOMAIN = ''
+DOMAIN = 'libraryutp.herokuapp.com'
 
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
