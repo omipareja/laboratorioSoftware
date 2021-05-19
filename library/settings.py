@@ -147,7 +147,7 @@ AUTH_USER_MODEL= 'users.User'
 STATIC_URL = 'static/'
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, STATIC_URL),
 ]
 
 
@@ -169,5 +169,5 @@ EMAIL_HOST_USER = 'djangosamakun@gmail.com'
 EMAIL_HOST_PASSWORD = '#123456789#'
 
 DOMAIN = ''
-STATIC_ROOT = os.path.join(BASE_DIR,'static')
+
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
