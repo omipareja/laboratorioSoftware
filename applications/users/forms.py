@@ -41,6 +41,7 @@ class UserRegisterForm(forms.ModelForm):
             'username': forms.TextInput(
 
                 attrs= {
+                    'placeholder': 'Ingresa un nombre de usuario',
                     'class': 'form-control',
                     'required':'True'
                 }
@@ -48,6 +49,7 @@ class UserRegisterForm(forms.ModelForm):
             'email': forms.TextInput(
 
                 attrs={
+                    'placeholder': 'Ingresa un correo electrónico',
                     'class': 'form-control',
                     'required': 'True'
                 }
@@ -55,6 +57,7 @@ class UserRegisterForm(forms.ModelForm):
             'nombres': forms.TextInput(
 
                 attrs={
+                    'placeholder': 'Ingresa tu nombre',
                     'class': 'form-control',
                     'required': 'True'
                 }
@@ -62,6 +65,7 @@ class UserRegisterForm(forms.ModelForm):
             'apellidos': forms.TextInput(
 
                 attrs={
+                    'placeholder': 'Ingresa tu apellido',
                     'class': 'form-control',
                     'required': 'True'
                 }
@@ -87,7 +91,7 @@ class LoginForm(forms.Form):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder':'Usuario',
+                'placeholder':'Ingresa tu nombre de usuario',
                 'class': 'form-control',
                 'autocomplete': 'off'
             }
@@ -98,7 +102,7 @@ class LoginForm(forms.Form):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder':'Contraseña',
+                'placeholder':'Ingresa tu contraseña',
                 'class': 'form-control',
                 'autocomplete': 'off'
             }

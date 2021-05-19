@@ -1,7 +1,82 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %} <title>Noticias | Librería UTP </title> {% endblock %}
 
+{% block imports %} 
+
+<link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
+<link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
+
+{% endblock %}
+
 {% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <section class="article-list">
+                <div class="container">
+                    <div class="intro mt-3 mb-3">
+                        <h2 class="text-center" style="margin-bottom: 0px;">Últimas noticias</h2>
+                    </div>
+                    <div class="row articles">
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/desk.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/building.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/loft.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <section class="article-list">
+                <div class="container">
+                    <div class="row articles">
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/desk.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/building.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                        <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{% static 'assets/img/loft.jpg' %}" /></a>
+                            <h3 class="name">Article Title</h3>
+                            <p class="description">Aenean tortor est, vulputate quis leo in, vehicula rhoncus lacus. Praesent aliquam in tellus eu gravida. Aliquam varius finibus est, interdum justo suscipit id.</p><a class="action" href="#"><i class="fa fa-arrow-circle-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col d-flex justify-content-center">
+            <nav>
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
+                    <li class="page-item"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

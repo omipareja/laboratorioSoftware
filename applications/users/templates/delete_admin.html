@@ -1,29 +1,23 @@
 {% extends 'base.html' %}
+
 {% block content %}
-    <div class="card ">
-    <div class="card-header with-border">
-        <i class="fa fa-warning"></i>
 
-        <h3 class="card-title"><i class="fas fa-user"></i> Eliminar  Usuario Administrador </h3>
-    </div>
-    <!-- /.box-header -->
-
-        <form method="post" >
-            <div class="card-body">
-            <div class="alert alert-danger alert-dismissible">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                <h4><i class="icon fa fa-ban"></i> Alert!</h4>
-                    <p>
-                    ¿Esta seguro de eliminar al Administrador {{ object }}?
-                    </p>
-                    <p>
-                        Esta action es irreversible
-                    </p>
+    <form method="post" >
+        <div class="container shadow d-flex align-items-center mt-auto mb-3" style="background: var(--bs-white);border-radius: 10px;width: 98%;height: 100%;">
+            <div role="dialog" tabindex="-1" class="modal fade show" id="confirmacion" style="display: block;">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Eliminar usuario</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Estas seguro de que deseas eliminar este usuario? Está acción no podrá deshacerse.</p>
+                        </div>
+                        <div class="modal-footer"><a href="{% url 'users:listar-admin' %}" class="btn btn-secondary" role="button">Regresar</a><button type="submit" class="btn btn-danger">Eliminar</button></div>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-                <a href="{% url 'users:listar-admin' %}" class="btn btn-secondary" role="button" data-bs-toggle="button">Regresar</a>
             </div>
-        </form>
+        </div>
+    </form>
 
-    </div>
 {% endblock %}

@@ -1,29 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %} <title>Iniciar sesión | Librería UTP</title> {% endblock %}
 
 {% block content %}
-<div class="container text-left shadow" style="background: rgb(244,244,244);border-radius: 2%;">
-    <header>
-        <h1 class="text-center mt-5">Login</h1>
-    </header>
-    <form id="loginForm" method="post"> {% csrf_token %}
-        <div class="form-group"> {{ form.username }}  </div>
-        <div class="form-group"> {{ form.password1 }} </div>
-        <div class="form-group"><button class="btn btn-primary btn-block" id="btnLogin" type="submit">Iniciar Sesión</button></div>
-        <a class="forgot" href="{% url 'users:reset-password' %}">¿Olvidaste tu contraseña?</a>
+<div class="container shadow d-flex align-items-center mt-auto mb-auto" style="background: var(--bs-white);border-radius: 10px;">
+    <form class="w-100 mx-3 my-3" method="POST">
+        <div class="row">
+            <div class="col">
+                <h1 class="text-center" style="font-family: Roboto, sans-serif;">Iniciar Sesión</h1>
+            </div>
+        </div>
+        <div class="row g-3">
+            <div class="col col-12"> {{ form.username }} </div>
+            <div class="col col-12"> {{ form.password1 }} </div>
+            <div class="col text-end col-12"><a href="{% url 'users:reset-password' %}">He olvidado mi contraseña</a></div>
+            <div class="col text-center col-12"><button class="btn btn-primary" type="submit">Iniciar Sesión</button></div>
+        </div>
     </form>
 </div>
+
 {% endblock %}
-    <!-- <div class="container">
-        <div class="container">
-            <h4>Iniciar Sesión</h4><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-        </div>
-        <div class="container">
-            <form id="loginForm" method="post"> {% csrf_token %}
-                <div class="form-group"> {{ form.username }} </div>
-                <div class="form-group"> {{ form.password1 }}</div>
-                <div class="form-group"><button class="btn btn-primary btn-block" id="btnLogin" type="submit">Iniciar Sesión</button></div><a class="forgot" href="#">¿Olvidaste tu contraseña?</a>
-            </form>
-        </div>
-    </div> -->

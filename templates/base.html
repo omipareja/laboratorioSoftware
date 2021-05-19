@@ -6,22 +6,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
     {% block title %} {% endblock %}
+
     <link rel="stylesheet" href="{% static 'assets/bootstrap/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Footer-Basic.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Login-Form-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Modal-Login-form.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/Navigation-with-Search.css' %}">
-    <link rel="stylesheet" href="{% static 'assets/css/styles.css' %}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome-all.min.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'assets/css/styles.css'"> -->
+    <script src="{% static 'assets/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.7/dist/sweetalert2.all.min.js"></script>
+
+    {% block imports %} {% endblock %}
+
 </head>
 
-<body {% block bodyClass %} {% endblock %}>
+<body class="d-flex flex-column min-vh-100 {% block bodyClass %} {% endblock %}">
     {% include 'navbar.html' %}
 
     {% block content %}
 
     {% endblock %}
+
+    {% include 'footer.html' %}
 </body>
 
 </html>
