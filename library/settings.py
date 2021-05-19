@@ -36,7 +36,7 @@ ALLOWED_HOSTS = ['libraryutp.herokuapp.com']
 # DEBUG = True
 #
 #
-# ALLOWED_HOSTS = []
+#ALLOWED_HOSTS = []
 
 # Application definition
 

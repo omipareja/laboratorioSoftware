@@ -253,7 +253,7 @@ class NewAdmin(FormView):
         admin.save()
         return super(NewAdmin, self).form_valid(form)
 
-class ListAdminView(LoginRequiredMixin,ValidatePermissionRequiredMixin,ListView):
+class ListAdminView(LoginRequiredMixin,ListView):
     model = usuario
     template_name = 'list_admin.html'
     context_object_name = 'admin'
