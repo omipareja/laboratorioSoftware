@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-x@-85wa%$w32=tna%#ro-n174%9ve=!jtv0!9jujb_0_wi$6cq
 
 ########production######
 
-DEBUG = True
+DEBUG = False
 
 
 ALLOWED_HOSTS = ['libraryutp.herokuapp.com']
@@ -142,7 +142,7 @@ AUTH_USER_MODEL= 'users.User'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-
+STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATIC_URL = 'static/'
 
