@@ -2,6 +2,7 @@ import smtplib
 import uuid
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.http import HttpResponseRedirect
 from django.shortcuts import render,redirect
 
@@ -44,6 +45,8 @@ class UserRegisterView(FormView):
         )
         usuario.categoria.set = form.cleaned_data['categoria']
         usuario.save()
+        g = Group.objects.get(name ='cliente')
+        g.user_set.add(usuario)
         #usuario.objects.create(form.cleaned_data('categoria'))
         return super(UserRegisterView,self).form_valid(form)
 
@@ -70,7 +73,7 @@ class LoginUser(FormView):
 class Prueba(LoginRequiredMixin,TemplateView):
     template_name = 'prueba.html'
 
-class LogoutView(View):
+class LogoutView(LoginRequiredMixin,View):
     def get(self,request,*args,**kwargs):
         logout(request)
         return HttpResponseRedirect(
@@ -162,10 +165,11 @@ class UpdateUsuario(LoginRequiredMixin,UpdateView):
     def get_object(self, queryset=None):#sirve para hacer el update del usuario con el que estamos logueado
         return self.request.user
 
-class ReclutarAdministrador(LoginRequiredMixin,FormView):
+class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,FormView):
     template_name = 'reclutar_admin.com.html'
     form_class = ReclutarAdminForm
     success_url = reverse_lazy('users:login')
+    permission_required = 'view_user'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -246,14 +250,15 @@ class NewAdmin(FormView):
             avatar=form.cleaned_data['avatar']
         )
         # usuario.objects.create(form.cleaned_data('categoria'))
-
+        g = Group.objects.get(name ='administrador')
+        g.user_set.add(user)
         codigo = self.kwargs['token']
         admin = usuario.objects.get(token=codigo)
         admin.token = uuid.uuid4()
         admin.save()
         return super(NewAdmin, self).form_valid(form)
 
-class ListAdminView(LoginRequiredMixin,ListView):
+class ListAdminView(ValidatePermissionRequiredMixin,LoginRequiredMixin,ListView):
     model = usuario
     template_name = 'list_admin.html'
     context_object_name = 'admin'
@@ -269,10 +274,11 @@ class ListAdminView(LoginRequiredMixin,ListView):
         list = usuario.objects.filter(nivel_accesibilidad=2)
         return list
 
-class DeleteAdmin(LoginRequiredMixin,DeleteView):
+class DeleteAdmin(ValidatePermissionRequiredMixin,LoginRequiredMixin,DeleteView):
     model = usuario
     template_name = "delete_admin.html"
     success_url = reverse_lazy('users:listar-admin')
+    permission_required = 'delete_user'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

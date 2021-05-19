@@ -10,4 +10,5 @@ urlpatterns = [
     path('listar_libro/',ListarLibro.as_view(),name='list_libro'),
     path('editar_libro/<int:pk>/',EditarLibro.as_view(),name='update_libro'),
     path('eliminar_libro/<int:pk>/',EliminarLibro.as_view(),name='eliminar_libro'),
+    path('buscar_libro/',BusquedaLibros.as_view(),name='buscar_libro')
 ]

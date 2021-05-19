@@ -1,5 +1,6 @@
 from django.db import models
 from .choices import ESTADO_LIBRO
+from .managers import LibroManager
 # Create your models here.
 class Category(models.Model):
     nombre = models.TextField()
@@ -20,7 +21,11 @@ class Libro(models.Model):
     precio = models.FloatField(default=0)
     stock = models.IntegerField(default=0)
     portada = models.ImageField(upload_to='portadas',blank=True,null=True)
-    categoria = models.ForeignKey(Category,on_delete=models.PROTECT,blank=True,null=True)
+
+
+    objects = LibroManager()
+
+
 
     def __str__(self):
         return self.titulo

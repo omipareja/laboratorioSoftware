@@ -22,6 +22,7 @@ class ListarLibro(ListView):
     template_name = 'lista_libros.html'
     context_object_name = 'libros'
     model = Libro
+    paginate_by = 8
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -45,3 +46,19 @@ class EliminarLibro(DeleteView):
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
+
+class BusquedaLibros(ListView):
+    template_name = 'busqueda_libros.html'
+    context_object_name = 'libros'
+    #paginate_by = 8
+
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        kword = self.request.GET.get('kword', '')
+        select = self.request.GET.get('select', '')
+        print(select)
+        resultado = Libro.objects.buscar_libro(kword,select)
+        return resultado
