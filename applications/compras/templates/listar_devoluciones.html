@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for devolucion in devoluciones %}
+
+        <h3>{{ devolucion.producto.titulo }}</h3>
+        <p>Fecha: {{ devolucion.fecha_devolucion }}</p>
+        <p>{{ devolucion.descripcion }}</p>
+        <hr>
+    {% endfor %}
+
+</body>
+</html>

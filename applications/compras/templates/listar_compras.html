@@ -5,24 +5,35 @@
     <title>Title</title>
 </head>
 <body>
-    <table>
-        <tr>
-          <td><strong>Fecha Compra</strong></td>
-          <td><strong>Total</strong></td>
-          <td><strong>Cantidad</strong></td>
+    {% for compra in compras %}
+        <h3>Fecha : {{ compra.fecha_compra }}</h3>
+        <p>Estado: {{ compra.cancelado }}</p>
+        {% for c in compra.compra_detalle.all %}
+            <ul>
+                <li>{{ c.producto.titulo }}
+                    <ul>
+                        <li>cantidad: {{ c.cantidad }}</li>
+                        <li>valor unitario: {{ c.precio_compra }}</li>
 
+                    </ul>
+                </li>
+            </ul>
+            {% if compra.cancelado != 'Devolucion'  %}
+                <form method="post" action="">
+                    <a href="{% url 'compras:nueva_devolucion' c.pk %}" type="button" >Devolver Producto</a>
+                </form>
+            {% endif %} 
 
-        </tr>
-        {% for compra in compras %}
-            <tr>
-                <td>{{compra.fecha_compra }}</td>
-                <td>{{ compra.total }}</td>
-                <td>{% for c in  compra.compra_detalle.all  %}
-                        {{ c.cantidad }}
-                    {% endfor %}
-                    </td>
-            </tr>
         {% endfor %}
-    </table>
+        <h2>Valor Total: {{ compra.monto }}</h2>
+        {% if compra.cancelado != 'Cancelado' %}
+            <form method="post" action="{% url 'compras:cancelar_compra' compra.pk %}">{% csrf_token %}
+                <button type="submit">Cancelar Compra</button>
+            </form>
+
+        {% endif %}
+        <hr>
+    {% endfor %}
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from applications.noticias.models import Noticias
 
 # Create your views here.
 from django.views.generic import TemplateView
@@ -10,6 +11,7 @@ class index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['currentUrl'] = 'inicio'
+        #context['listado']
         return context
 
 class noticias(TemplateView):

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    {% for reserva in reservas %}
+        <p>{{ reserva.productos.titulo }}</p>
+        <p>{{ reserva.productos.precio }}</p>
+        <p>{{ reserva.cantidad }}</p>
+        <form method="post" action="{% url 'compras:aumentar_reserva' reserva.pk %}">
+            <button type="submit">Aumentar</button>{% csrf_token %}
+        </form>
+        <form method="post" action="{% url 'compras:disminuir_reserva' reserva.pk %}">
+            <button type="submit">disminuir</button>{% csrf_token %}
+        </form>
+        <form method="post" action="{% url 'compras:eliminar_reserva' reserva.pk %}">
+            <button type="submit">Eliminar</button>{% csrf_token %}
+        </form>
+        <hr>
+    {% endfor %}
+    <h3>Total reserva:{{ total }} </h3>
+    <p>Para pagar la reserva ingrese el numero de de la tarjeta se validara con la informacion guardada</p>
+    <form method="post"> {% csrf_token %}
+        {{ form.metodo }}
+        <br>
+        <br>
+        <button type="submit">Pagar reserva</button>
+    </form>
+
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    <!----Fin bloque--->
+
+</body>
+</html>

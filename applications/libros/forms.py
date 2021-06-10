@@ -1,5 +1,5 @@
 from django import  forms
-from .models import Libro
+from .models import Libro,Category
 class Createlibro(forms.ModelForm):
     class Meta:
         model = Libro
@@ -51,4 +51,18 @@ class Createlibro(forms.ModelForm):
                 }
             ),
 
+        }
+
+class CreateCategoryForm(forms.ModelForm):
+    class Meta:
+        model = Category
+        fields = ('__all__')
+        widgets = {
+            'nombre': forms.TextInput(
+                attrs= {
+                    'class':'form-control',
+                    'required': 'True',
+                    'placeholder': 'Categoria'
+                }
+            )
         }

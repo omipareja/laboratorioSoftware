@@ -17,4 +17,5 @@ urlpatterns = [
     path('crear-administrador/<str:token>/',NewAdmin.as_view(),name='crear-admin'),
     path('listar-administrador/',ListAdminView.as_view(),name='listar-admin'),
     path('eliminar-administrador/<int:pk>/',DeleteAdmin.as_view(),name='eliminar-admin'),
+
 ]

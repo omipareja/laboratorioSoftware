@@ -44,3 +44,6 @@ class LibroManager(models.Manager):
             return  self.filter(
                categoria__nombre  = kword
             )
+
+    def libros_clientes(self):
+        return self.filter(stock__gt= 0)

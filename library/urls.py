@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('applications.libros.urls')),
     path('', include('applications.tarjetas.urls')),
     path('', include('applications.compras.urls')),
+    path('', include('applications.noticias.urls')),
+    path('', include('applications.chat.urls'))
 ]+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 ##local
 #+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

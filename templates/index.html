@@ -5,6 +5,7 @@
 {% block content %}
 
 <div class="container-fluid" style="background: var(--bs-white);">
+{% block acordeon %}
     <div class="row">
         <div class="col text-center" style="margin-top: 4px;margin-bottom: 4px;">
             <div class="carousel slide" data-bs-ride="carousel" id="carousel-1">
@@ -22,6 +23,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+
+    {% block libros %}
+
+    {% endblock %}
+
+{% block publicidad %}
     <div class="row">
         <div class="col" style="margin-bottom: 4px;">
             <div class="card-group">
@@ -61,6 +70,10 @@
             </nav>
         </div>
     </div>
+{% endblock %}
+
+
+
 </div>
 
 {% endblock %}

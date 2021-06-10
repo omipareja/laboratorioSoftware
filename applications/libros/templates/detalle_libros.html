@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post" action="{% url 'compras:añadir_carro' libro.pk %}"> {% csrf_token %}
+        <h1>Detalle</h1>
+        <p> Nombre: {{ libro.titulo }}</p>
+        <p> Editorial: {{ libro.editorial }}</p>
+        <p> Strock: {{ libro.stock }}</p>
+        <button  type="submit"> Añadir al carro de compras </button>
+    </form>
+    <form method="post" action="{% url 'compras:crear_reserva' libro.pk %}">{% csrf_token %}
+        <button  type="submit">Reservar</button>
+    </form>
+</body>
+</html>

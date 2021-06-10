@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+  <tr>
+    <th >Titulo</th>
+    <th>Autor</th>
+    <th>Descripcion</th>
+    <th>Editar</th>
+    <th>Eliminar</th>
+  </tr>
+  {% for noticia in noticias %}
+      <tr>
+        <td>{{ noticia.titulo  }}</td>
+        <td>{{ noticia.autor.nombres }}</td>
+        <td>{{ noticia.descripcion | truncatechars:30 }}</td>
+        <td><a href="{% url 'noticias:actualizar_noticia' noticia.pk %}">Editar</a></td>
+        <td><a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a></td>
+      </tr>
+  {% endfor %}
+
+    </table>
+</body>
+</html>
