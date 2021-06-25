@@ -4,7 +4,7 @@
             <div class="collapse navbar-collapse" id="navcol-1">
                 <ul class="navbar-nav">
                     <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'inicio' %} active {% endif %}" href="{% url 'home:index' %}" style="color: var(--bs-white);">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'noticias:mostrar_noticia' %}" style="color: var(--bs-white);">Noticias</a></li>
+                    <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'home:noticias' %}" style="color: var(--bs-white);">Noticias</a></li>
                     <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'home:contacto' %}" style="color: var(--bs-white);">Contacto</a></li><li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'salas:checkview' %}" style="color: var(--bs-white);">Chat</a></li>
                     <li class="nav-item text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscar"><i class="fas fa-search"></i></button></li>
                     <li class="nav-item text-center" style="margin-top: 4px;">
