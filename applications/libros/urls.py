@@ -6,7 +6,7 @@ from applications.libros.views import *
 app_name = 'libros'
 
 urlpatterns = [
-    ################################urls_administracion##########################3
+    ################################urls_administracion###########################
     path('nuevo_libro/',NuevoLibroCreateView.as_view(),name='add_libro'),
     path('listar_libro/',ListarLibro.as_view(),name='list_libro'),
     path('editar_libro/<int:pk>/',EditarLibro.as_view(),name='update_libro'),
