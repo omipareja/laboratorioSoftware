@@ -25,18 +25,18 @@ SECRET_KEY = 'django-insecure-x@-85wa%$w32=tna%#ro-n174%9ve=!jtv0!9jujb_0_wi$6cq
 # SECURITY WARNING: don't run with debug turned on in production!
 
 
-########production######
-#
-# DEBUG = True
-#
-#
-# ALLOWED_HOSTS = ['libraryutp.herokuapp.com']
+#######production######
 
-########Local##############3
 DEBUG = True
 
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['libraryutp.herokuapp.com']
+
+########Local##############3
+#DEBUG = True
+
+
+#ALLOWED_HOSTS = []
 ##############
 # Application definition
 
@@ -97,15 +97,15 @@ WSGI_APPLICATION = 'library.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 #####database Local #########
-DATABASES = db.POSTGRESQL
+#DATABASES = db.POSTGRESQL
 #############################
 
-###########3#database production############3
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default= config('DATABASE_URL')
-#     )
-# }
+##########3#database production############3
+DATABASES = {
+    'default': dj_database_url.config(
+        default= config('DATABASE_URL')
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
