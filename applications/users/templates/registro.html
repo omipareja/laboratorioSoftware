@@ -21,7 +21,7 @@
             <div class="col-sm-6"><label>Identificación</label> {{ form.dni|attr:"placeholder: Ingresa tu número de Identificación"|attr:"class:form-control"|attr:"required:True" }} </div>
             <div class="col-sm-6"><label>Lugar de nacimiento</label> {{ form.lugar_nacimiento }} </div>
             <div class="col-sm-6"><label>Fecha de nacimiento</label> {{ form.fecha_nacimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} </div>
-            <div class="col-sm-6"><label>¿Qué categorías te gustan?</label> {{ form.categoria }} </div>
+            <div class="col-sm-6"><label>¿Qué categorías te gustan?</label> {{ form.categoria | attr:"class:form-select" }} </div>
             <div class="col-12"><label>Foto de perfil</label> {{ form.avatar }} </div>
             <div class="text-center col-12"><button class="btn btn-primary" type="submit">Registrarse</button></div>
         </div>
