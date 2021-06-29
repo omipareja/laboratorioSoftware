@@ -94,9 +94,9 @@ class UserRegisterForm(forms.ModelForm):
         if not all(x.isalpha() or x.isspace() for x in self.cleaned_data['apellidos']):
             self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
 
-    def clean_username(self):
+    def clean(self):
+        cleaned = super(UserRegisterForm, self).clean()
         regex = '^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$'
-
         if not match(regex, self.cleaned_data['username']):
             self.add_error('username', forms.ValidationError('El nombre de usuario debe contener entre 8 y 20 caracteres. Puede contener letras, números, puntos o guión bajo. No pueden existir dos caracteres especiales (._) consecutivos, ni empezar o terminar con estos.'))
 
