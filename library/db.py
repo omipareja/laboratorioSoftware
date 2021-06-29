@@ -19,7 +19,7 @@ POSTGRESQL = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'libreria_utp' ,
         'USER': 'postgres' ,
-        'PASSWORD':'yamamoto7674',
+        'PASSWORD':'admin',
         'HOST': 'localhost',
         'PORT': '5432'
     }

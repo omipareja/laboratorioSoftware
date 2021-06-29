@@ -12,39 +12,109 @@
             </div>
         </div>
         <div class="row g-3">
-            <div class="col-sm-6"><label>Nombres</label> {{ form.nombres }} </div>
-            <div class="col-sm-6"><label>Apellidos</label> {{ form.apellidos}} </div>
-            <div class="col-sm-6"><label>Usuario</label> {{ form.username }} </div>
-            <div class="col-sm-6"><label>Correo electronico</label> {{ form.email }} </div>
-            <div class="col-sm-6"><label>Contraseña</label> {{ form.password1 }} </div>
-            <div class="col-sm-6"><label>Confirmar contraseña</label> {{ form.password2 }} </div>
-            <div class="col-sm-6"><label>Identificación</label> {{ form.dni|attr:"placeholder: Ingresa tu número de Identificación"|attr:"class:form-control"|attr:"required:True" }} </div>
-            <div class="col-sm-6"><label>Lugar de nacimiento</label> {{ form.lugar_nacimiento }} </div>
-            <div class="col-sm-6"><label>Fecha de nacimiento</label> {{ form.fecha_nacimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} </div>
-            <div class="col-sm-6"><label>¿Qué categorías te gustan?</label> {{ form.categoria | attr:"class:form-select" }} </div>
-            <div class="col-12"><label>Foto de perfil</label> {{ form.avatar }} </div>
+            <div class="col-sm-6">
+                <label for="id_nombres" class="form-label">Nombres</label>
+                {% if form.errors.nombres %}
+                    {{ form.nombres | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.nombres }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.nombres }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_apellidos" class="form-label">Apellidos</label>
+                {% if form.errors.apellidos %}
+                    {{ form.apellidos | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.apellidos }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.apellidos }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_username" class="form-label">Usuario</label> 
+                {% if form.errors.username %}
+                    {{ form.username | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.username }} 
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.username }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_email" class="form-label">Correo electronico</label> 
+                {% if form.errors.email %}
+                    {{ form.email | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.email }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.email }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_password1" class="form-label">Contraseña</label> 
+                {% if form.errors.password1 %}
+                    {{ form.password1 | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.password1 }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.password1 }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_password2" class="form-label">Confirmar contraseña</label>
+                {% if form.errors.password2 %}
+                    {{ form.password2 | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.password2 }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.password2 }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_dni" class="form-label">Identificación</label>
+                {% if form.errors.dni %}
+                    {{ form.dni|attr:"placeholder: Ingresa tu número de Identificación"|attr:"class:form-control is-invalid"|attr:"required:True" }}
+                {% else %}
+                    {{ form.dni|attr:"placeholder: Ingresa tu número de Identificación"|attr:"class:form-control"|attr:"required:True" }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.dni }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_lugar_nacimiento" class="form-label">Lugar de nacimiento</label>
+                {{ form.lugar_nacimiento }} 
+            </div>
+            <div class="col-sm-6">
+                <label for="calendario" class="form-label">Fecha de nacimiento</label>
+                {% if form.errors.password2 %}
+                    {{ form.fecha_nacimiento|attr:"class:form-control is-invalid"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} 
+                {% else %}
+                    {{ form.fecha_nacimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} 
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.fecha_nacimiento }}
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <label for="id_categoria" class="form-label">¿Qué categorías te gustan?</label> 
+                {{ form.categoria | attr:"class:form-select" }} 
+            </div>
+            <div class="col-12">
+                <label for="id_avatar" class="form-label">Foto de perfil</label> 
+                {{ form.avatar }} 
+            </div>
             <div class="text-center col-12"><button class="btn btn-primary" type="submit">Registrarse</button></div>
         </div>
     </form>
 </div>
-
-<script>
-    {% if form.errors %}
-        var errors = '';
-        {% for field in form %}
-            {% for error in field.errors %}
-                errors += '{{ error }}\n';
-            {% endfor %}
-        {% endfor %}
-        {% for error in form.non_field_errors %}
-            errors += '{{ error }}\n';
-        {% endfor %}
-        Swal.fire({
-            title: 'Error!',
-            text: errors,
-            icon: 'error'
-        });
-    {% endif %}
-</script>
 
 {% endblock %}
