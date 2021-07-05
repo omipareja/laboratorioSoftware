@@ -7,7 +7,7 @@ from applications.libros.models import Category
 from .choices import MUNICIPIOS_COLOMBIA
 class User(AbstractBaseUser,PermissionsMixin):
 
-    username = models.CharField(max_length=16,unique=True)
+    username = models.CharField(max_length=25,unique=True)
     email = models.EmailField()
     nombres = models.CharField(max_length=30,blank=True,null=True)
     apellidos = models.CharField(max_length=30,blank=True,null=True)

@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                <label for="id_username" class="form-label">Usuario</label> 
+                <label for="id_username" class="form-label">Usuario</label>
                 {% if form.errors.username %}
                     {{ form.username | add_class:"is-invalid"}}
                 {% else %}
@@ -95,7 +95,7 @@
             </div>
             <div class="col-sm-6">
                 <label for="calendario" class="form-label">Fecha de nacimiento</label>
-                {% if form.errors.password2 %}
+                {% if form.errors.calendario %}
                     {{ form.fecha_nacimiento|attr:"class:form-control is-invalid"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} 
                 {% else %}
                     {{ form.fecha_nacimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:calendario" }} 

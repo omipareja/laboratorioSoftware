@@ -84,20 +84,26 @@ class UserRegisterForm(forms.ModelForm):
         }
     
     def clean_nombres(self):
-        if(self.cleaned_data['nombres']):
-            if not all(x.isalpha() or x.isspace() for x in self.cleaned_data['nombres']):
+        nombres = self.cleaned_data['nombres']
+        if(nombres != None):
+            if not all(x.isalpha() or x.isspace() for x in nombres):
                 self.add_error('nombres', forms.ValidationError('Los nombres no pueden contener números o caracteres especiales.'))
         else:
             self.add_error('nombres', forms.ValidationError('El nombre no puede ser únicamente de espacios'))
 
     def clean_apellidos(self):
-        if not all(x.isalpha() or x.isspace() for x in self.cleaned_data['apellidos']):
-            self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
+        apellidos = self.cleaned_data['apellidos']
+        if(apellidos != None):
+            if not all(x.isalpha() or x.isspace() for x in apellidos):
+                self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
+        else:
+            self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden ser únicamente de espacios'))
 
-    def clean(self):
+    def clean_username(self):
         cleaned = super(UserRegisterForm, self).clean()
         regex = '^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$'
-        if not match(regex, self.cleaned_data['username']):
+        username = cleaned['username']
+        if not match(regex, username):
             self.add_error('username', forms.ValidationError('El nombre de usuario debe contener entre 8 y 20 caracteres. Puede contener letras, números, puntos o guión bajo. No pueden existir dos caracteres especiales (._) consecutivos, ni empezar o terminar con estos.'))
 
     def clean_dni(self):
