@@ -1,0 +1,54 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+}
+
+.main-nav {
+  padding: 1.25rem;
+  background: rgb(245,245,245);
+  box-shadow: 1px 1px 6px;
+}
+
+@media (min-width: 768px) {
+  .main-buttons {
+    margin-right: 0px;
+  }
+}
+
+.product a {
+  text-decoration: none;
+  color: black;
+}
+
+.product a:hover {
+  text-decoration: none;
+  color: gray;
+}
+
+.registration-background {
+  background: url("../../assets/img/registration.jpg");
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+.no-estilo{
+  text-decoration: none;
+  color: black;
+}
+
+.footer-main{
+  background-color: rgb(245,245,245);
+  font-family: Roboto, sans-serif;
+  color: var(--bs-black);
+  box-shadow: 1px 1px 3px;
+}
+
+.required::after {
+  content:" *";
+  color: red;
+}

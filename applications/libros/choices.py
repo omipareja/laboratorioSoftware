@@ -1,4 +1,10 @@
+import pycountry
+
 ESTADO_LIBRO = (
-    ('nuevo','nuevo'),
-    ('usado','usado'),
+    ('Nuevo','Nuevo'),
+    ('Usado','Usado'),
+)
+
+LENGUAJES = (
+    ('Español', 'Español'),
 )

@@ -1,13 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Crear</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} <title>Crear categoria | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container mt-auto mb-auto" style="max-width: 500px;">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Crear categoría de libros</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                <label for="id_categoria" class="form-label required">Nombre</label>
+                {{ form.nombre }}
+                <div class="text-center mt-2">
+                    <a href="{% url 'libros:list_libro' %}" class="btn btn-danger mx-2" role="button">Cancelar</a>
+                    <button class="btn btn-success" type="submit" style="margin-left: 10px;">Crear</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

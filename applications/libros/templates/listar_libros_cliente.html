@@ -2,42 +2,36 @@
 {% load static %}
 
 {% block content %}
-<div class="container-fluid" style="background: var(--bs-white);">
+<main>
+    <div class="container">
         <div class="row">
-            <form method="post">{% csrf_token %}
-                <div class="col" style="margin-bottom: 4px;">
-                    <div class="card-group">
-                        {% for libro in libros %}
-                        <div class="card">
-                             <img class="card-img-top" src="{{ libro.portada.url }}" alt="Card image cap" height="300 px" width="100 px">
-                            <div class="card-body">
-                                <h4 class="card-title">{{libro.titulo }}</h4>
-                                <a href="{% url 'libros:detalle_libro' libro.pk %}" class="btn btn-primary" type="button">Button</a>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+            <div class="col text-end">
+                <p class="mt-2">Filtrar por:&nbsp;<select>
+                        <optgroup label="Categoría">
+                            <option value="Terror" selected="">Terror</option>
+                            <option value="Accion">Acción</option>
+                            <option value="Ficcion">Ciencia Ficción</option>
+                        </optgroup>
+                    </select></p>
+            </div>
+        </div>
+        <div class="row">
+            {% for libro in libros %}
+                <div class="col col-lg-3 col-md-4 col-sm-6 product terror">
+                    <a href="#">
+                        <img class="img-fluid" src="/media/{{libro.portada}}">
+                        <h4>{{libro.titulo}}</h4>
+                        <h5>{{libro.autor}}</h5>
+                        <h6>ISBN {{libro.isbn}}</h6>
+                        <p class="lead text-center" style="font-weight: bold;font-size: 24px;">${{libro.precio}}</p>
+                    </a>
                 </div>
-            </form>
-            </div>
+            {% endfor %}
         </div>
-
-
-        <div class="row">
-            <div class="col d-flex d-xl-flex justify-content-center">
-                <nav>
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">4</a></li>
-                        <li class="page-item"><a class="page-link" href="#">5</a></li>
-                        <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
-        </div>
-</div>
+    </div>
+    <div class="container text-center mt-2">
+        <a class="btn btn-primary btn-lg mb-2" role="button" href="#">Previa</a>
+        <a class="btn btn-primary btn-lg mb-2" role="button" href="#">Siguiente</a>
+    </div>
+</main>
 {% endblock %}

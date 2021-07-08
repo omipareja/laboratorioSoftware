@@ -1,112 +1,55 @@
-<div class="container-fluid" style="background: var(--bs-dark);">
-    <nav class="navbar navbar-dark navbar-expand-md">
-        <div class="container-fluid"><a class="navbar-brand" href="{% url 'home:index' %}" style="color: var(--bs-white);"><strong>Librería UTP</strong></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Menu</span><span class="navbar-toggler-icon"></span></button>
-            <div class="collapse navbar-collapse" id="navcol-1">
-                <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'inicio' %} active {% endif %}" href="{% url 'home:index' %}" style="color: var(--bs-white);">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'home:noticias' %}" style="color: var(--bs-white);">Noticias</a></li>
-                    <li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'home:contacto' %}" style="color: var(--bs-white);">Contacto</a></li><li class="nav-item"><a class="nav-link text-center {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'salas:checkview' %}" style="color: var(--bs-white);">Chat</a></li>
-                    <li class="nav-item text-center"><button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buscar"><i class="fas fa-search"></i></button></li>
-                    <li class="nav-item text-center" style="margin-top: 4px;">
-                        {% if user.is_anonymous %}
-                        <div class="d-md-none">
-                            <a class="btn btn-primary" role="button" style="margin-right: 6px;" href="{% url 'users:login' %}">Iniciar Sesión</a>
-                            <a class="btn btn-primary" role="button" href="{% url 'users:registro' %}">Registrarse</a>
-                        </div>
-                        {% else %}
-                        <div class="col-5 btn-group d-md-none">
-                            <button type="button" class="btn btn-danger dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                                Mi cuenta
-                            </button>
-                            <ul class="dropdown-menu w-100">
+{% load static %}
+
+<nav class="navbar navbar-light navbar-expand-md main-nav">
+    <div class="container-fluid"><a class="navbar-brand" href="#">Librería UTP</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="navbar-nav text-center me-auto">
+                <li class="nav-item"><a class="nav-link {% if currentUrl == 'inicio' %} active {% endif %}" href="{% url 'home:index' %}"><i class="fas fa-home"></i> Inicio</a></li>
+                <li class="nav-item"><a class="nav-link {% if currentUrl == 'catalogo' %} active {% endif %}" href="{% url 'libros:catalogo' %}"><i class="fas fa-book"></i> Catálogo</a></li>
+                <li class="nav-item"><a class="nav-link {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'noticias:listar_noticia' %}"><i class="far fa-newspaper"></i> Noticias</a></li>
+                <li class="nav-item"><a class="nav-link {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'home:contacto' %}"><i class="fas fa-phone"></i> Contacto</a></li>
+                {% if not user.is_anonymous %}
+                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'chat' %} active {% endif %}" href="#"><i class="far fa-comment-alt"></i> Chat<br /></a></li>
+                {% endif %}
+            </ul>
+            <div class="container d-flex justify-content-center align-items-center main-buttons" style="width: 210px;padding: 0;">
+                {% if user.is_anonymous %}
+                    <a class="btn btn-primary" role="button" style="margin-right: 6px;" href="{% url 'users:login' %}">Log in</a>
+                    <a class="btn btn-primary" role="button" href="{% url 'users:registro' %}">Registrarse</a>
+                {% else %}
+                    <div class="container d-flex justify-content-center align-items-center" style="width: 210px;padding: 0;">
+                        <div class="dropdown">
+                            <a aria-expanded="false" data-bs-toggle="dropdown" class="dropdown-toggle no-estilo" href="#">
+                                {% if user.avatar %}
+                                    <img src="/media/{{user.avatar}}" width="40" height="40" class="rounded-circle">
+                                {% else %}
+                                    <img src="{% static 'img/default.png' %}" width="40" height="40" class="rounded-circle">
+                                {% endif %}
+                                Hola {{ user.nombres }} 
+                            </a>
+                            <div class="dropdown-menu">
                                 {% if user.nivel_accesibilidad == 3 %}
-                                    <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                                    <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Usuarios</a>
+                                    <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Administrar usuarios</a>
                                 {% else %}
                                     {% if user.nivel_accesibilidad == 2 %}
-                                        <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                                        <a class="dropdown-item disabled" href="#">Compras</a>
-                                        <a class="dropdown-item disabled" href="#">Libros</a>
-                                        <a class="dropdown-item disabled" href="#">Noticias</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Compras pendientes</a>
+                                        <a class="dropdown-item" href="{% url 'libros:list_libro' %}">Inventario de libros</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Noticias publicadas</a>
                                     {% else %}
-                                        <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                                        <a class="dropdown-item disabled" href="#">Mis compras</a>
-                                        <a class="dropdown-item disabled" href="#">Mis reservas</a>
-                                        <a class="dropdown-item disabled" href="#">Mis tarjetas</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Mis compras</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Mis reservas</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Mis tarjetas</a>
                                     {% endif %}
                                 {% endif %}
                                 <li><hr class="dropdown-divider"></li>
-                                <div><p class="ms-2 mb-auto"><strong>Opciones de perfil</strong></p></div>
-                                <a class="dropdown-item" href="{% url 'users:update-user' %}">Editar perfil</a>
+                                {% if user.nivel_accesibilidad != 3 %}
+                                    <a class="dropdown-item" href="{% url 'users:update-user' %}">Editar perfil</a>
+                                {% endif %}
                                 <a class="dropdown-item" href="{% url 'users:logout' %}">Cerrar sesión</a>
-                            </ul>
                         </div>
-                        {% endif %}
-                    </li>
-                </ul>
-            </div>
-            {% if user.is_anonymous %}
-            <div class="d-none d-md-block">
-                <a class="btn btn-primary" role="button" style="margin-right: 6px;" href="{% url 'users:login' %}">Iniciar Sesión</a>
-                <a class="btn btn-primary" role="button" href="{% url 'users:registro' %}">Registrarse</a>
-            </div>
-            {% else %}
-                <div class="col-2 d-none d-md-block btn-group">
-                    <button type="button" class="btn btn-danger dropdown-toggle w-100" data-bs-toggle="dropdown" aria-expanded="false">
-                        Mi cuenta
-                    </button>
-                    <ul class="dropdown-menu w-100">
-                        {% if user.nivel_accesibilidad == 3 %}
-                            <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                            <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Usuarios</a>
-                        {% else %}
-                            {% if user.nivel_accesibilidad == 2 %}
-                                <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                                <a class="dropdown-item disabled" href="#">Compras</a>
-                                <a class="dropdown-item disabled" href="#">Libros</a>
-                                <a class="dropdown-item disabled" href="#">Noticias</a>
-                            {% else %}
-                                <p class="ms-2 mb-0"><strong>Administrar</strong></p>
-                                <a class="dropdown-item disabled" href="#">Mis compras</a>
-                                <a class="dropdown-item disabled" href="#">Mis reservas</a>
-                                <a class="dropdown-item disabled" href="#">Mis tarjetas</a>
-                            {% endif %}
-                        {% endif %}
-                        <li><hr class="dropdown-divider"></li>
-                        <div><p class="ms-2 mb-auto"><strong>Opciones de perfil</strong></p></div>
-                        <a class="dropdown-item" href="{% url 'users:update-user' %}">Editar perfil</a>
-                        <a class="dropdown-item" href="{% url 'users:logout' %}">Cerrar sesión</a>
-                    </ul>
-                </div>
-            {% endif %}
-        </div>
-    </nav>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="buscar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Buscar libros</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="row">
-                        <div class="col text-center">
-                            <select class="form-select" required="" style="height: 40px;">
-                                <option value="Nombre" selected="">Nombre</option>
-                                <option value="Autor">Autor</option>
-                                <option value="ISBN">ISBN</option>
-                            </select></div>
-                        <div class="col"><input class="form-control" type="search" style="width: 300px;height: 40px;" required="" placeholder="Buscar" minlength="2" name="consulta"></div>
                     </div>
-                    <div class="row">
-                        <div class="col text-center" style="margin-top: 10px;"><button class="btn btn-primary" type="submit">Buscar</button></div>
-                    </div>
-                </form>
+                {% endif %}
             </div>
         </div>
     </div>
-</div>
+</nav>

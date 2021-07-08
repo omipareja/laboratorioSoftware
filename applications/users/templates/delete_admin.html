@@ -1,23 +1,22 @@
 {% extends 'base.html' %}
 
+{% block title %} <title>Eliminar administrador | Librería UTP</title> {% endblock %}
+
 {% block content %}
 
-    <form method="post" >
-        <div class="container shadow d-flex align-items-center mt-auto mb-3" style="background: var(--bs-white);border-radius: 10px;width: 98%;height: 100%;">
-            <div role="dialog" tabindex="-1" class="modal fade show" id="confirmacion" style="display: block;">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title">Eliminar usuario</h4><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            <p>¿Estas seguro de que deseas eliminar este usuario? Está acción no podrá deshacerse.</p>
-                        </div>
-                        <div class="modal-footer"><a href="{% url 'users:listar-admin' %}" class="btn btn-secondary" role="button">Regresar</a><button type="submit" class="btn btn-danger">Eliminar</button></div>
-                    </div>
-                </div>
-            </div>
+<div class="container mt-auto mb-auto" style="max-width: 500px;">
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>Eliminar administrador</h1>
         </div>
-    </form>
+        <div class="card-body">
+            <p>¿Estas seguro de que deseas eliminar este usuario? Está acción no podrá deshacerse.</p>
+        </div>
+        <div class="card-footer">
+            <a href="{% url 'users:listar-admin' %}" class="btn btn-secondary mx-2" role="button">Regresar</a>
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </div>
+    </div>
+</div>
 
 {% endblock %}

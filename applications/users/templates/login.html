@@ -1,23 +1,42 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load widget_tweaks %}
 
 {% block title %} <title>Iniciar sesión | Librería UTP</title> {% endblock %}
 
 {% block content %}
-<div class="container shadow d-flex align-items-center mt-auto mb-auto" style="background: var(--bs-white);border-radius: 10px;">
-    <form class="w-100 mx-3 my-3" method="POST">
-        <div class="row">
-            <div class="col">
-                <h1 class="text-center" style="font-family: Roboto, sans-serif;">Iniciar Sesión</h1>
+
+<div class="container mt-auto">
+    <div class="row" style="box-shadow: 0px 0px 4px 2px;border-radius: 3px;">
+        <div class="col-lg-6" style="background: url({% static 'assets/img/registration.jpg' %});"></div>
+        <div class="col-lg-6 d-flex justify-content-center align-items-center" style="background: #f8f8f8;min-height: 70vh;">
+            <div class="row">
+                <div class="col text-center col-12">
+                    <h1>Iniciar Sesión</h1>
+                </div>
+                <form method="POST">
+                    <div class="col">
+                        <div class="col col-12 ml-2 mr-2">{{ form.username }}</div>
+                        <div class="col col-12 ml-2 mr-2 mt-2">
+                            {% if form.errors.password1 %}
+                                {{ form.password1 | add_class:"is-invalid"}}
+                            {% else %}
+                                {{ form.password1 }} 
+                            {% endif %}
+                            <div class="invalid-feedback">
+                                {{ form.errors.password1 }}
+                            </div>
+                        </div>
+                        <div class="col text-end col-12 mt-2"><a href="{% url 'users:reset-password' %}">He olvidado mi contraseña</a></div>
+                        <div class="col text-center col-12 mt-2"><button class="btn btn-primary" type="submit">Iniciar Sesión</button></div>
+                    </div>
+                </form>
+                <div class="col col-12 mt-2">
+                    <p class="text-center">¿Aún no estás registrado?&nbsp;<a href="{% url 'users:registro' %}">Registrarse</a></p>
+                </div>
             </div>
         </div>
-        <div class="row g-3">
-            <div class="col col-12"> {{ form.username }} </div>
-            <div class="col col-12"> {{ form.password1 }} </div>
-            <div class="col text-end col-12"><a href="{% url 'users:reset-password' %}">He olvidado mi contraseña</a></div>
-            <div class="col text-center col-12"><button class="btn btn-primary" type="submit">Iniciar Sesión</button></div>
-        </div>
-    </form>
+    </div>
 </div>
 
 {% endblock %}

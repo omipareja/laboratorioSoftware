@@ -8,7 +8,7 @@ app_name = 'noticias'
 urlpatterns = [
     ###########################urls_para_Adiministradores####################################
     path('crear_noticia/',CrearNoticiaView.as_view(),name='crear_noticia'),
-    path('listar_noticia/',ListarNoticiaView.as_view(),name='listar_noticia'),
+    path('noticias/',ListarNoticiaView.as_view(),name='listar_noticia'),
     path('eliminar_noticia/<int:pk>/',DeleteNoticiaView.as_view(),name='eliminar_noticia'),
     path('actualizar_noticia/<int:pk>/',UpdateNoticia.as_view(),name='actualizar_noticia'),
     ###########################3urls_usuario###############################################33

@@ -85,30 +85,43 @@ class UserRegisterForm(forms.ModelForm):
     
     def clean_nombres(self):
         nombres = self.cleaned_data['nombres']
+
         if(nombres != None):
             if not all(x.isalpha() or x.isspace() for x in nombres):
                 self.add_error('nombres', forms.ValidationError('Los nombres no pueden contener números o caracteres especiales.'))
         else:
             self.add_error('nombres', forms.ValidationError('El nombre no puede ser únicamente de espacios'))
 
+        return nombres
+
     def clean_apellidos(self):
         apellidos = self.cleaned_data['apellidos']
+
         if(apellidos != None):
             if not all(x.isalpha() or x.isspace() for x in apellidos):
                 self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
         else:
             self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden ser únicamente de espacios'))
 
+        return apellidos
+
     def clean_username(self):
         cleaned = super(UserRegisterForm, self).clean()
         regex = '^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$'
         username = cleaned['username']
+
         if not match(regex, username):
             self.add_error('username', forms.ValidationError('El nombre de usuario debe contener entre 8 y 20 caracteres. Puede contener letras, números, puntos o guión bajo. No pueden existir dos caracteres especiales (._) consecutivos, ni empezar o terminar con estos.'))
 
+        return username
+
     def clean_dni(self):
-        if self.cleaned_data['dni'] < 10000:
+        dni = self.cleaned_data['dni']
+
+        if dni < 10000:
             self.add_error('dni', forms.ValidationError('El número de documento es invalido.'))
+
+        return dni
 
     def clean_fecha_nacimiento(self):
         fecha_nacimiento = self.cleaned_data['fecha_nacimiento']
@@ -117,6 +130,8 @@ class UserRegisterForm(forms.ModelForm):
 
         if(years < 18):
             self.add_error('fecha_nacimiento', forms.ValidationError('Debes tener al menos 18 años para registrarte.'))
+
+        return fecha_nacimiento
 
     def clean_password2(self):
         if self.cleaned_data['password1'] != self.cleaned_data['password2']:
@@ -155,7 +170,7 @@ class LoginForm(forms.Form):
         password = self.cleaned_data['password1']
 
         if not authenticate(username = username, password = password):
-            self.add_error('password1', forms.ValidationError('Las credenciales no existen'))
+            self.add_error('password1', forms.ValidationError('Los datos ingresados no son válidos. Por favor, verifícalos e inténtalo de nuevo.'))
         return  self.cleaned_data
 
 class ResetPassword(forms.Form):
@@ -163,7 +178,7 @@ class ResetPassword(forms.Form):
         required=True,
         widget= forms.TextInput(
             attrs={
-                'placeholder':'Ingrese un username',
+                'placeholder':'Ingresa tu username',
                 'class': 'form-control',
                 'autocomplete': 'off',
             }
@@ -171,9 +186,13 @@ class ResetPassword(forms.Form):
     )
 
     def clean(self):
+        regex = '^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$'
         cleaned = super(ResetPassword,self).clean()
         if not  User.objects.filter(username = cleaned['username']).exists():
             self.add_error('username', forms.ValidationError('El usuario ingresado no existe'))
+        elif not match(regex, cleaned['username']):
+            self.add_error('username', forms.ValidationError('El nombre de usuario debe contener entre 8 y 20 caracteres. Puede contener letras, números, puntos o guión bajo. No pueden existir dos caracteres especiales (._) consecutivos, ni empezar o terminar con estos.'))
+
         return cleaned
 
     def get_user(self):
@@ -185,7 +204,7 @@ class ChangePassword(forms.Form):
         required=True,
         widget= forms.PasswordInput(
             attrs={
-                'placeholder':'Ingrese un password',
+                'placeholder':'Ingresa una contraseña',
                 'class': 'form-control',
                 'autocomplete': 'off',
             }
@@ -196,7 +215,7 @@ class ChangePassword(forms.Form):
         required=True,
         widget= forms.PasswordInput(
             attrs={
-                'placeholder':'Repita  el password',
+                'placeholder':'Confirma la contraseña',
                 'class': 'form-control',
                 'autocomplete': 'off',
             }
@@ -210,6 +229,9 @@ class ChangePassword(forms.Form):
 
         if password1 != password2:
             self.add_error('password1', forms.ValidationError('Las contraseñas no coinciden.'))
+            self.add_error('password2', forms.ValidationError('Las contraseñas no coinciden.'))
+        elif len(self.cleaned_data['password2']) < 8:
+            self.add_error('password1', forms.ValidationError('La contraseña debe tener al menos 8 caracteres.'))
 
 
 class UpdateUserForm(forms.ModelForm):
@@ -267,12 +289,59 @@ class UpdateUserForm(forms.ModelForm):
 
         }
 
+    def clean_nombres(self):
+        nombres = self.cleaned_data['nombres']
+
+        if(nombres != None):
+            if not all(x.isalpha() or x.isspace() for x in nombres):
+                self.add_error('nombres', forms.ValidationError('Los nombres no pueden contener números o caracteres especiales.'))
+        else:
+            self.add_error('nombres', forms.ValidationError('El nombre no puede ser únicamente de espacios'))
+
+        return nombres
+
+    def clean_apellidos(self):
+        apellidos = self.cleaned_data['apellidos']
+
+        if(apellidos != None):
+            if not all(x.isalpha() or x.isspace() for x in apellidos):
+                self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
+        else:
+            self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden ser únicamente de espacios'))
+
+        return apellidos
+
+    def clean_dni(self):
+        dni = self.cleaned_data['dni']
+
+        if dni < 10000:
+            self.add_error('dni', forms.ValidationError('El número de documento es invalido.'))
+
+        return dni
+
+    def clean_fecha_nacimiento(self):
+        fecha_nacimiento = self.cleaned_data['fecha_nacimiento']
+
+        years = date.today().year - fecha_nacimiento.year
+
+        if(years < 18):
+            self.add_error('fecha_nacimiento', forms.ValidationError('Debes tener al menos 18 años para registrarte.'))
+
+        return fecha_nacimiento
+
+    def clean_password2(self):
+        if self.cleaned_data['password1'] != self.cleaned_data['password2']:
+            self.add_error('password1', forms.ValidationError('Las contraseñas no coinciden.'))
+            self.add_error('password2', forms.ValidationError('Las contraseñas no coinciden.'))
+        elif len(self.cleaned_data['password2']) < 8:
+            self.add_error('password1', forms.ValidationError('La contraseña debe tener al menos 8 caracteres.'))
+
 class ReclutarAdminForm(forms.Form):
     email = forms.CharField(
         required=True,
         widget= forms.EmailInput(
             attrs={
-                'placeholder':'Ingrese un email',
+                'placeholder':'Ingresa un email',
                 'class': 'form-control',
                 'autocomplete': 'off',
                 'required': 'True'
@@ -286,7 +355,7 @@ class AdminRegisterForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder':'Contraseña',
+                'placeholder':'Ingresa una contraseña',
                 'class': 'form-control'
             }
         )
@@ -296,7 +365,7 @@ class AdminRegisterForm(forms.ModelForm):
         required=True,
         widget=forms.PasswordInput(
             attrs={
-                'placeholder':'Repetir contraseña',
+                'placeholder':'Confirmar contraseña',
                 'class': 'form-control'
             }
         )
@@ -353,8 +422,60 @@ class AdminRegisterForm(forms.ModelForm):
             ),
 
         }
+    
+    def clean_nombres(self):
+        nombres = self.cleaned_data['nombres']
+
+        if(nombres != None):
+            if not all(x.isalpha() or x.isspace() for x in nombres):
+                self.add_error('nombres', forms.ValidationError('Los nombres no pueden contener números o caracteres especiales.'))
+        else:
+            self.add_error('nombres', forms.ValidationError('El nombre no puede ser únicamente de espacios'))
+
+        return nombres
+
+    def clean_apellidos(self):
+        apellidos = self.cleaned_data['apellidos']
+
+        if(apellidos != None):
+            if not all(x.isalpha() or x.isspace() for x in apellidos):
+                self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden contener números o caracteres especiales.'))
+        else:
+            self.add_error('apellidos', forms.ValidationError('Los apellidos no pueden ser únicamente de espacios'))
+
+        return apellidos
+
+    def clean_username(self):
+        cleaned = super(UserRegisterForm, self).clean()
+        regex = '^[a-zA-Z0-9]+([._]?[a-zA-Z0-9]+)*$'
+        username = cleaned['username']
+
+        if not match(regex, username):
+            self.add_error('username', forms.ValidationError('El nombre de usuario debe contener entre 8 y 20 caracteres. Puede contener letras, números, puntos o guión bajo. No pueden existir dos caracteres especiales (._) consecutivos, ni empezar o terminar con estos.'))
+
+        return username
+
+    def clean_dni(self):
+        dni = self.cleaned_data['dni']
+
+        if dni < 10000:
+            self.add_error('dni', forms.ValidationError('El número de documento es invalido.'))
+
+        return dni
+
+    def clean_fecha_nacimiento(self):
+        fecha_nacimiento = self.cleaned_data['fecha_nacimiento']
+
+        years = date.today().year - fecha_nacimiento.year
+
+        if(years < 18):
+            self.add_error('fecha_nacimiento', forms.ValidationError('Debes tener al menos 18 años para registrarte.'))
+
+        return fecha_nacimiento
+
     def clean_password2(self):
         if self.cleaned_data['password1'] != self.cleaned_data['password2']:
             self.add_error('password1', forms.ValidationError('Las contraseñas no coinciden.'))
-        if len(self.cleaned_data['password2']) < 8:
-            self.add_error('password2', forms.ValidationError('La contraseña debe tener al menos 8 caracteres'))
+            self.add_error('password2', forms.ValidationError('Las contraseñas no coinciden.'))
+        elif len(self.cleaned_data['password2']) < 8:
+            self.add_error('password1', forms.ValidationError('La contraseña debe tener al menos 8 caracteres.'))

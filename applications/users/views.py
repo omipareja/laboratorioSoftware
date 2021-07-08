@@ -45,7 +45,7 @@ class UserRegisterView(FormView):
         )
         usuario.categoria.set = form.cleaned_data['categoria']
         usuario.save()
-        g = Group.objects.get(name ='cliente')
+        g = Group.objects.get(name ='Cliente')
         g.user_set.add(usuario)
         #usuario.objects.create(form.cleaned_data('categoria'))
         return super(UserRegisterView,self).form_valid(form)
@@ -110,11 +110,11 @@ class RecuperarContraseña(FormView):
             mensaje = MIMEMultipart()
             mensaje['From'] = settings.EMAIL_HOST_USER
             mensaje['To'] = user.email
-            mensaje['subject'] = 'Recuperacion de contraseña'
+            mensaje['subject'] = 'Recupera tu contraseña'
 
             content = render_to_string('send_email.html', {
                 'user': user,
-                'link_resetpwd': 'http://{}/cambiar-contraseña/{}'.format(url,str(user.token)),
+                'link_resetpwd': 'http://{}/cambiarContrasena/{}'.format(url,str(user.token)),
                 'link_home': 'http://{}/login/'.format(url),
 
             })
@@ -158,7 +158,7 @@ class UpdateUsuario(LoginRequiredMixin,UpdateView):
     model = usuario
     template_name = 'UpdateUser.html'
     form_class = UpdateUserForm
-    success_url = reverse_lazy('home:index')
+    success_url = reverse_lazy('users:update-user')
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -167,7 +167,7 @@ class UpdateUsuario(LoginRequiredMixin,UpdateView):
         return self.request.user
 
 class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,FormView):
-    template_name = 'reclutar_admin.com.html'
+    template_name = 'reclutar_admin.html'
     form_class = ReclutarAdminForm
     success_url = reverse_lazy('users:login')
     permission_required = 'view_user'
@@ -198,11 +198,11 @@ class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,F
             mensaje = MIMEMultipart()
             mensaje['From'] = settings.EMAIL_HOST_USER
             mensaje['To'] = email
-            mensaje['subject'] = 'Nuevo administrador'
+            mensaje['subject'] = '¡Te han invitado para formar parte del equipo de Librería UTP!'
 
             content = render_to_string('send_admin.html', {
-                'user': 'Nuevo Tripulante',
-                'link_resetpwd': 'http://{}/crear-administrador/{}'.format(url,str(user.token)),
+                'user': "Nuevo tripulante",
+                'link_resetpwd': 'http://{}/crearAdmin/{}'.format(url,str(user.token)),
                 'link_home':'http://{}/login/'.format(url),
 
             })
@@ -211,6 +211,7 @@ class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,F
 
             mailServer.sendmail(settings.EMAIL_HOST_USER, email, mensaje.as_string())
             print('correo enviado...')
+
         except Exception as e:
             print(e)
 

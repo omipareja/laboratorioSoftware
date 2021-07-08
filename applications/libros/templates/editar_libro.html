@@ -1,13 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Actualizar</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} <title>Editar libro | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container mt-auto mb-auto">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Editar libro</h1>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="row g-2">
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_titulo" class="form-label">Titulo</label>
+                        {% if form.errors.titulo %}
+                            {{ form.titulo | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.titulo }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.titulo }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_autor" class="form-label">Autor</label>
+                        {% if form.errors.autor %}
+                            {{ form.autor | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.autor }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.autor }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_isbn" class="form-label">ISBN</label>
+                        {% if form.errors.isbn %}
+                            {{ form.isbn | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.isbn }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.isbn }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_numero_pagina" class="form-label">Número de páginas</label><br>
+                        {% if form.errors.numero_paginas %}
+                            {{ form.numero_paginas | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.numero_paginas }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.numero_paginas }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_editorial" class="form-label">Editorial</label> 
+                        {% if form.errors.editorial %}
+                            {{ form.editorial | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.editorial }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.editorial }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_fecha_publicacion" class="form-label">Fecha de publicación</label>
+                        {% if form.errors.fecha_publicacion %}
+                            {{ form.fecha_publicacion|attr:"class:form-control is-invalid"|attr:"type:date"|attr:"required:True"|attr:"id:id_fecha_publicacion"}}
+                        {% else %}
+                            {{ form.fecha_publicacion|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:id_fecha_publicacion" }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.fecha_publicacion }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_idioma" class="form-label">Idioma</label>
+                        {% if form.errors.idioma %}
+                            {{ form.idioma | add_class:"is-invalid" }}
+                        {% else %}
+                            {{ form.idioma }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.idioma }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_estado" class="form-label">Estado</label>
+                        {{ form.estado }} 
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_precio" class="form-label">Precio</label><br>
+                        {% if form.errors.precio %}
+                            {{ form.precio | add_class:"is-invalid" }} 
+                        {% else %}
+                            {{ form.precio }} 
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.precio }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_precio" class="form-label">Stock</label><br>
+                        {% if form.errors.stock %}
+                            {{ form.stock | add_class:"is-invalid" }} 
+                        {% else %}
+                            {{ form.stock }} 
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.stock }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_categoria" class="form-label">Categoría</label>
+                        {{ form.categoria }} 
+                    </div>
+                    <div class="form-group col-5 mx-auto">
+                        <label for="id_avatar" class="form-label">Portada del libro</label><br>
+                        {{ form.portada | attr:"class:form-control-file" }}
+                    </div>
+                    <div class="text-center col-12">
+                        <a href="{% url 'libros:list_libro' %}" class="btn btn-danger" role="button">Cancelar</a>
+                        <button class="btn btn-primary" type="submit">Editar libro</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

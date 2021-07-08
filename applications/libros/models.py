@@ -1,5 +1,5 @@
 from django.db import models
-from .choices import ESTADO_LIBRO
+from .choices import ESTADO_LIBRO, LENGUAJES
 from .managers import LibroManager
 # Create your models here.
 class Category(models.Model):
@@ -16,7 +16,7 @@ class Libro(models.Model):
     numero_paginas = models.IntegerField()
     editorial = models.TextField(max_length=50)
     fecha_publicacion = models.DateField(blank=True,null=True)
-    idioma = models.TextField()
+    idioma = models.CharField(max_length=60,choices=LENGUAJES, default='Español')
     estado = models.CharField(max_length=15,choices=ESTADO_LIBRO,default='nuevo')
     precio = models.FloatField(default=0)
     stock = models.IntegerField(default=0)

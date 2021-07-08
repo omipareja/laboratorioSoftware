@@ -1,41 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <table style="width:40%">
-  <tr>
-    <th>ISBN</th>
-    <th>Autor</th>
-    <th>titulo</th>
-    <th>categoria</th>
-    <th>Idioma</th>
-    <th>estado</th>
-    <th>precio</th>
-    <th>stock</th>
-    <th>Opciones</th>
-  </tr>
-      {% for libro in libros %}
-        <tr>
-           <td>{{ libro.isbn }}</td>
-           <td>{{ libro.autor}}</td>
-           <td>{{ libro.titulo}}</td>
-           <td>
-               {% for cat in libro.categoria.all %}
-                    {{ cat }}
-               {% endfor %}
+{% extends 'base.html' %}
 
-           </td>
-           <td>{{ libro.idioma}}</td>
-           <td>{{ libro.estado}}</td>
-           <td>{{ libro.precio}}</td>
-           <td>{{ libro.stock}}</td>
-           <td><a type="button" href="{% url 'libros:update_libro' libro.pk %}">Editar</a> <a type="button" href="{% url 'libros:eliminar_libro' libro.pk %}">Eliminar</a></td>
-        </tr>
-      {% endfor %}
+{% block title %} <title>Lista de administradores | Librería UTP</title> {% endblock %}
 
-</table>
-</body>
-</html>
+{% block content %}
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Libros</h1>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <a class="btn mb-2" role="button" href="{% url 'libros:add_libro' %}" style="color: white; background-color: #6610f2;">Añadir libro</a>
+        <a class="btn mb-2" role="button" href="{% url 'libros:crear_categoria' %}" style="color: white; background-color: #6f42c1;">Crear categoria</a>
+      </div>
+  </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive table-bordered">
+                <table class="table">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Autor</th>
+                            <th>Editorial</th>
+                            <th>Stock</th>
+                            <th>Precio</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for libro in libros%}
+                      <tr class="text-center">
+                          <td>{{ libro.titulo }}</td>
+                          <td>{{ libro.autor }}</td>
+                          <td>{{ libro.editorial }}</td>
+                          <td> {{ libro.stock }}</td>
+                          <td> ${{ libro.precio }}</td>
+                          <td>
+                            <div role="group" class="btn-group d-lg-flex">
+                              <a class="btn btn-primary" role="button" href="{% url 'libros:update_libro' libro.pk %}">Editar</a>
+                              <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'libros:eliminar_libro' libro.pk %}">Eliminar</a>
+                            </div>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+  
+{% endblock %}
