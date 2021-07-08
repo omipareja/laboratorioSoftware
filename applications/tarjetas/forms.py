@@ -51,6 +51,7 @@ class CrearTarjetaForm(forms.ModelForm):
 
         return numero
 
+    """
     def clean_fecha_vencimiento(self):
         fecha_vencimiento = self.cleaned_data['fecha_vencimiento']
 
@@ -66,7 +67,7 @@ class CrearTarjetaForm(forms.ModelForm):
             self.add_error('fecha_vencimiento', forms.ValidationError('La tarjeta tiene una fecha menor o está a punto de vencerse. Por favor, intenta nuevamente.'))
 
         return fecha_vencimiento
-
+        """
     def clean_cvv(self):
         cleaned_data = super(CrearTarjetaForm, self).clean()
         cvv = str(self.cleaned_data['cvv'])

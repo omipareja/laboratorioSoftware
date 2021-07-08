@@ -11,7 +11,7 @@ class CrearTarjeta(FormView):
     template_name = 'add_tarjeta.html'
     model = Tarjeta
     form_class = CrearTarjetaForm
-    success_url = reverse_lazy('home:index')
+    success_url = reverse_lazy('tarjetas:list_tarjeta')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -37,6 +37,7 @@ class ListarTarjeta(ListView):
     template_name = 'listar_tarjeta.html'
     model = Tarjeta
     context_object_name = 'tarjetas'
+    paginate_by = 2
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

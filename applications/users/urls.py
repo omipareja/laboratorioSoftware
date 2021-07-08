@@ -16,5 +16,6 @@ urlpatterns = [
     path('crearAdmin/<str:token>/',NewAdmin.as_view(),name='crear-admin'),
     path('administradores/',ListAdminView.as_view(),name='listar-admin'),
     path('eliminarAdmin/<int:pk>/',DeleteAdmin.as_view(),name='eliminar-admin'),
+    path('convertirUsuario',TemplateAdmin.as_view(),name='convertir-admin'),
 
 ]

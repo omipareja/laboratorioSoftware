@@ -22,7 +22,7 @@ class ListarLibro(ListView):
     template_name = 'lista_libros_admin.html'
     context_object_name = 'libros'
     model = Libro
-    paginate_by = 8
+    paginate_by = 4
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -31,15 +31,27 @@ class ListarLibro(ListView):
 class ListarLibroCliente(ListView):
     template_name = 'listar_libros_cliente.html'
     context_object_name = 'libros'
-    paginate_by = 8
+    paginate_by = 10
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
         return super().dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
-        resultado = Libro.objects.libros_clientes()
-        return resultado
+        select = self.request.GET.get('select', '')
+        if select:
+            categoria = Category.objects.get(nombre=select)
+            resultado = Libro.objects.libros_category(categoria)
+            return resultado
+        else:
+            resultado = Libro.objects.libros_clientes(select)
+            return resultado
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Category.objects.all()
+        return context
 
 class EditarLibro(UpdateView):
     template_name = 'editar_libro.html'

@@ -48,7 +48,7 @@ class UserRegisterView(FormView):
         )
         usuario.categoria.set = form.cleaned_data['categoria']
         usuario.save()
-        g = Group.objects.get(name ='Cliente')
+        g = Group.objects.get(name ='cliente')
         g.user_set.add(usuario)
         #usuario.objects.create(form.cleaned_data('categoria'))
         return super(UserRegisterView,self).form_valid(form)
@@ -169,11 +169,11 @@ class UpdateUsuario(LoginRequiredMixin,UpdateView):
     def get_object(self, queryset=None):#sirve para hacer el update del usuario con el que estamos logueado
         return self.request.user
 
-class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,FormView):
+class ReclutarAdministrador(LoginRequiredMixin,FormView):
     template_name = 'reclutar_admin.html'
     form_class = ReclutarAdminForm
     success_url = reverse_lazy('users:login')
-    permission_required = 'view_user'
+    #permission_required = 'view_user'
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):
@@ -183,9 +183,9 @@ class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,F
 
         try:
             #url local
-            #url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
+            url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
             #url para producion
-            url = settings.DOMAIN
+            #url = settings.DOMAIN
 
             user.token =  uuid.uuid4()
             user.save()
@@ -220,9 +220,20 @@ class ReclutarAdministrador(ValidatePermissionRequiredMixin,LoginRequiredMixin,F
 
     def form_valid(self, form):
         email = form.cleaned_data['email']
-        user = self.request.user
-        self.send_email_reset_password(user,email)
+        usuario_email = User.objects.filter(email=email).exists()
+        if usuario_email == False:
+            user = self.request.user
+            self.send_email_reset_password(user, email)
+        else:
+            update_user = User.objects.get(email=email)
+            update_user.nivel_accesibilidad = 2
+            update_user.save()
+            return HttpResponseRedirect(reverse('users:convertir-admin'))
         return super(ReclutarAdministrador, self).form_valid(form)
+
+
+class TemplateAdmin(TemplateView):
+    template_name = 'usuario_existente.html'
 
 class NewAdmin(FormView):
 
@@ -264,7 +275,7 @@ class NewAdmin(FormView):
         admin.save()
         return super(NewAdmin, self).form_valid(form)
 
-class ListAdminView(ValidatePermissionRequiredMixin,LoginRequiredMixin,ListView):
+class ListAdminView(LoginRequiredMixin,ListView):
     model = usuario
     template_name = 'list_admin.html'
     context_object_name = 'admin'
@@ -280,7 +291,7 @@ class ListAdminView(ValidatePermissionRequiredMixin,LoginRequiredMixin,ListView)
         list = usuario.objects.filter(nivel_accesibilidad=2)
         return list
 
-class DeleteAdmin(ValidatePermissionRequiredMixin,LoginRequiredMixin,DeleteView):
+class DeleteAdmin(LoginRequiredMixin,DeleteView):
     model = usuario
     template_name = "delete_admin.html"
     success_url = reverse_lazy('users:listar-admin')

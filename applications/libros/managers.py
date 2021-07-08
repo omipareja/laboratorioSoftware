@@ -1,5 +1,4 @@
 from django.db import models
-
 class LibroManager(models.Manager):
 
     def buscar_libro(self,kword,select):
@@ -45,5 +44,11 @@ class LibroManager(models.Manager):
                categoria__nombre  = kword
             )
 
-    def libros_clientes(self):
-        return self.filter(stock__gt= 0)
+    def libros_clientes(self,select):
+        if len(select) == 0:
+            return self.filter(stock__gt= 0)
+        else:
+            return self.filter(stock__gt= 0)
+
+    def libros_category(self,categoria):
+        return self.filter(stock__gt=0,categoria=categoria)

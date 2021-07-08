@@ -6,32 +6,68 @@
     <div class="container">
         <div class="row">
             <div class="col text-end">
-                <p class="mt-2">Filtrar por:&nbsp;<select>
-                        <optgroup label="Categoría">
-                            <option value="Terror" selected="">Terror</option>
-                            <option value="Accion">Acción</option>
-                            <option value="Ficcion">Ciencia Ficción</option>
-                        </optgroup>
-                    </select></p>
+                <p class="mt-2">Filtrar por:&nbsp;
+                    <form method="get">
+                        <select name="select">
+                            <optgroup label="Categoría">
+                                {% for categoria in categorias %}
+                                    <option value="{{ categoria.nombre }}" selected="">{{ categoria.nombre }}</option>
+                                {% endfor %}
+                                </optgroup>
+                        </select>
+                        <button type="submit">Buscar</button>
+                    </form>
+
+                </p>
             </div>
         </div>
         <div class="row">
             {% for libro in libros %}
                 <div class="col col-lg-3 col-md-4 col-sm-6 product terror">
                     <a href="#">
-                        <img class="img-fluid" src="/media/{{libro.portada}}">
+                        <img class="img-fluid" src="{{libro.portada.url}}">
                         <h4>{{libro.titulo}}</h4>
                         <h5>{{libro.autor}}</h5>
                         <h6>ISBN {{libro.isbn}}</h6>
                         <p class="lead text-center" style="font-weight: bold;font-size: 24px;">${{libro.precio}}</p>
                     </a>
                 </div>
+                {% empty %}
+                    <div class="alert alert-secondary" role="alert">
+                      No hay libros disponbles para esta categoria
+                    </div>
             {% endfor %}
         </div>
     </div>
-    <div class="container text-center mt-2">
-        <a class="btn btn-primary btn-lg mb-2" role="button" href="#">Previa</a>
-        <a class="btn btn-primary btn-lg mb-2" role="button" href="#">Siguiente</a>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-5">
+            <div class="container text-center mt-2">
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination">
+                      {% if page_obj.has_previous %}
+                          <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                      {% endif %}
+                      {% for pagina in paginator.page_range %}
+                          {% ifequal pagina page_obj.number  %}
+                              <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
+                              {% else %}
+                              <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+                          {% endifequal %}
+
+                      {% endfor %}
+                      {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                       {% endif %}
+                  </ul>
+                </nav>
+            </div>
+        </div>
+        <div class="col-md-2">
+
+        </div>
     </div>
+
 </main>
 {% endblock %}

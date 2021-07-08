@@ -2,6 +2,8 @@ from django.db import models
 from .choices import ESTADO_LIBRO, LENGUAJES
 from .managers import LibroManager
 # Create your models here.
+
+
 class Category(models.Model):
     nombre = models.TextField()
 
