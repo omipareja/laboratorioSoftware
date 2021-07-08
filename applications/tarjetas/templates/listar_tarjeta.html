@@ -1,28 +1,55 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <table>
-        <tr>
-          <td><strong>Numero</strong></td>
-          <td><strong>Fecha vencimiento</strong></td>
-          <td><strong>Saldo</strong></td>
-          <td><strong>Opciones</strong></td>
-          <td><strong>Aumentar</strong></td>
+{% extends 'base.html' %}
 
-        </tr>
-        {% for tarjeta in tarjetas %}
-            <tr>
-                <td>{{tarjeta.numero }}</td>
-                <td>{{ tarjeta.fecha_vencimiento }}</td>
-                <td>{{ tarjeta.saldo }}</td>
-                <td><a  href="{% url 'tarjetas:eliminar_tarjeta' tarjeta.pk %}">Eliminar</a> <a class="button"  href="#">Actualizar</a> </td>
-                <td><a class="button" href="{% url 'tarjetas:aumentar_Saldo' tarjeta.pk %}">Aumentar</a></td>
-        </tr>
-        {% endfor %}
-    </table>
-</body>
-</html>
+{% block title %} <title>Mis tarjetas | Librería UTP</title> {% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+    <div class="col">
+        <h1 class="text-center">Tarjetas registradas</h1>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+    <a class="btn btn-danger" role="button" href="{% url 'tarjetas:add_tarjeta'%}">Añadir tarjeta</a>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            <p></p>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <div class="table-responsive table-bordered">
+            <table class="table">
+                <thead class="text-center">
+                    <tr>
+                        <th>Número</th>
+                        <th>Fecha de vencimiento</th>
+                        <th>Saldo</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="text-center">
+                    {% for tarjeta in tarjetas %}
+                    <tr>
+                        <td>{{ tarjeta.numero }}</td>
+                        <td>{{ tarjeta.fecha_vencimiento }}</td>
+                        <td>${{ tarjeta.saldo }}</td>
+                        <td>
+                            <div role="group" class="btn-group d-lg-flex">
+                                <a class="btn btn-primary" role="button" href="{% url 'tarjetas:aumentar_Saldo' tarjeta.pk %}">Aumentar saldo</a>
+                                <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'tarjetas:eliminar_tarjeta' tarjeta.pk %}">Eliminar</a>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+  
+{% endblock %}

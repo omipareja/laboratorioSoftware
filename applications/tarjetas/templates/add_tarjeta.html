@@ -1,13 +1,67 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">
-        {{ form.as_p }}
-        <button type="submit">Crear</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} <title>Añadir tarjeta | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container mt-auto mb-auto">
+    <div class="card">
+        <div class="card-header text-center">
+            <h1>Añadir tarjeta</h1>
+        </div>
+        <div class="card-body">
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <div class="row g-2">
+                    <div class="form-group col-12 mx-auto">
+                        <label for="id_numero" class="form-label required">Número de tarjeta</label>
+                        {% if form.errors.numero %}
+                            {{ form.numero | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.numero }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.numero }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4 mx-auto">
+                        <label for="id_fecha_vencimiento" class="form-label required">Fecha de vencimiento</label>
+                        {% if form.errors.fecha_vencimiento %}
+                            {{ form.fecha_vencimiento|attr:"class:form-control is-invalid"|attr:"type:date"|attr:"required:True"|attr:"id:id_fecha_vencimiento"}}
+                        {% else %}
+                            {{ form.fecha_vencimiento|attr:"class:form-control"|attr:"type:date"|attr:"required:True"|attr:"id:id_fecha_vencimiento" }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.fecha_vencimiento }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4 mx-auto">
+                        <label for="id_cvv" class="form-label required">CVV</label>
+                        {% if form.errors.cvv %}
+                            {{ form.cvv | add_class:"is-invalid"}}
+                        {% else %}
+                            {{ form.cvv }}
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.cvv }}
+                        </div>
+                    </div>
+                    <div class="form-group col-sm-4 mx-auto">
+                        <label for="id_saldo" class="form-label required">Saldo</label><br>
+                        {% if form.errors.saldo %}
+                            {{ form.saldo | add_class:"is-invalid" }} 
+                        {% else %}
+                            {{ form.saldo }} 
+                        {% endif %}
+                        <div class="invalid-feedback">
+                            {{ form.errors.saldo }}
+                        </div>
+                    </div>
+                    <div class="text-center col-12"><button class="btn btn-primary" type="submit">Crear libro</button></div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

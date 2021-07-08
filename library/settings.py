@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #terceros
     'widget_tweaks',
+    'django_yearmonth_widget',
     #Aplicaciones
     'applications.prueba',
     'applications.users',

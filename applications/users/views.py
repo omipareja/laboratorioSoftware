@@ -27,21 +27,24 @@ class UserRegisterView(FormView):
     template_name = 'registro.html'
     form_class = UserRegisterForm
     success_url = reverse_lazy('users:login')
+    
+    @method_decorator(csrf_exempt)
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(reverse_lazy('home:index'))
+        return super().dispatch(request, *args, **kwargs)
+    
     def form_valid(self, form):
-        @method_decorator(csrf_exempt)
-        def dispatch(self, request, *args, **kwargs):
-            return super().dispatch(request, *args, **kwargs)
-
         usuario =User.objects.create_user(
-            username = form.cleaned_data['username'],
-            email = form.cleaned_data['email'],
-            password= form.cleaned_data['password1'],
-            nombres = form.cleaned_data['nombres'],
-            apellidos = form.cleaned_data['apellidos'],
-            fecha_nacimiento = form.cleaned_data['fecha_nacimiento'],
-            lugar_nacimiento = form.cleaned_data['lugar_nacimiento'],
-            dni = form.cleaned_data['dni'],
-            avatar = form.cleaned_data['avatar']
+        username = form.cleaned_data['username'],
+        email = form.cleaned_data['email'],
+        password= form.cleaned_data['password1'],
+        nombres = form.cleaned_data['nombres'],
+        apellidos = form.cleaned_data['apellidos'],
+        fecha_nacimiento = form.cleaned_data['fecha_nacimiento'],
+        lugar_nacimiento = form.cleaned_data['lugar_nacimiento'],
+        dni = form.cleaned_data['dni'],
+        avatar = form.cleaned_data['avatar']
         )
         usuario.categoria.set = form.cleaned_data['categoria']
         usuario.save()

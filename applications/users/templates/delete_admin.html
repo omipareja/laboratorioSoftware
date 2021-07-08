@@ -13,8 +13,10 @@
             <p>¿Estas seguro de que deseas eliminar este usuario? Está acción no podrá deshacerse.</p>
         </div>
         <div class="card-footer">
-            <a href="{% url 'users:listar-admin' %}" class="btn btn-secondary mx-2" role="button">Regresar</a>
-            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <a href="{% url 'users:listar-admin' %}" class="btn btn-secondary mx-2" role="button">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
         </div>
     </div>
 </div>

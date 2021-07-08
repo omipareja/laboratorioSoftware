@@ -1,15 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post" enctype="multipart/form-data">{% csrf_token %}
-        <p> Hola {{ user.nombres }} Estas seguro de querer aumentar el saldo para la tarjeta {{ object.numero }}?</p>
-        {{ form.as_p }}
-        <button type="submit">Aumentar</button>
-        <button href="{% url 'tarjetas:list_tarjeta' %}">cancelar</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %} <title>Aumentar saldo | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container mt-auto mb-auto" style="max-width: 500px;">
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>Aumentar saldo</h1>
+        </div>
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">{% csrf_token %}
+                <p>¿Cuánto saldo deseas agregar a tu cuenta de la tarjeta {{ object.numero }}? Ingresa la cantidad en la casilla de abajo.</p>
+                {% if form.errors.saldo %}
+                    {{ form.saldo | add_class:"is-invalid"}}
+                {% else %}
+                    {{ form.saldo }}
+                {% endif %}
+                <div class="invalid-feedback">
+                    {{ form.errors.saldo }}
+                </div>
+                <a href="{% url 'tarjetas:list_tarjeta' %}" class="btn btn-secondary mt-2" role="button">Cancelar</a>
+                <button type="submit" class="btn btn-success mx-2 mt-2">Confirmar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

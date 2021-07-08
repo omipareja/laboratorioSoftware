@@ -3,7 +3,7 @@ from applications.users.models import User
 # Create your models here.
 
 class Tarjeta(models.Model):
-    numero = models.IntegerField(unique=True)
+    numero = models.CharField(max_length=20,unique=True)
     fecha_vencimiento = models.DateField()
     cvv = models.TextField()
     usuario = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
