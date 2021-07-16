@@ -28,10 +28,10 @@ urlpatterns = [
     path('', include('applications.compras.urls')),
     path('', include('applications.noticias.urls')),
     path('', include('applications.chat.urls'))
-]+static(settings.STATIC_ROOT,document_root=settings.MEDIA_ROOT)
+]+ static(settings.STATIC_ROOT,document_root=settings.MEDIA_ROOT)
 ##local
-#
+#+ static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
 
 #####producion
 
-#+static(settings.STATIC_ROOT,document_root=settings.MEDIA_ROOT)
+#
