@@ -9,7 +9,7 @@
                 <li class="nav-item"><a class="nav-link {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'noticias:mostrar_noticia' %}"><i class="far fa-newspaper"></i> Noticias</a></li>
                 <li class="nav-item"><a class="nav-link {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'home:contacto' %}"><i class="fas fa-phone"></i> Contacto</a></li>
                 {% if not user.is_anonymous %}
-                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'chat' %} active {% endif %}" href="#"><i class="far fa-comment-alt"></i> Chat<br /></a></li>
+                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'chat' %} active {% endif %} disabled" href="#"><i class="far fa-comment-alt"></i> Chat<br /></a></li>
                 {% endif %}
             </ul>
             <div class="container d-flex justify-content-center align-items-center main-buttons" style="width: 210px;padding: 0;">
@@ -32,12 +32,12 @@
                                     <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Administrar usuarios</a>
                                 {% else %}
                                     {% if user.nivel_accesibilidad == 2 %}
-                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Compras pendientes</a>
+                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Compras pendientes</a>
                                         <a class="dropdown-item" href="{% url 'libros:list_libro' %}">Inventario de libros</a>
                                         <a class="dropdown-item" href="{% url 'noticias:listar_noticia' %}">Noticias publicadas</a>
                                     {% else %}
-                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Mis compras</a>
-                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Mis reservas</a>
+                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Mis compras</a>
+                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Mis reservas</a>
                                         <a class="dropdown-item" href="{% url 'tarjetas:list_tarjeta' %}">Mis tarjetas</a>
                                     {% endif %}
                                 {% endif %}

@@ -1,13 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <form method="post">    {% csrf_token %}
-        <p>Estas seguro de eliminar la noticia {{ object.titulo }}</p>
-        <button type="submit">Eliminar</button>
-    </form>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} <title>Eliminar noticia | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container mt-auto mb-auto" style="max-width: 500px;">
+    <div class="card text-center">
+        <div class="card-header">
+            <h1>Eliminar noticia</h1>
+        </div>
+        <div class="card-body">
+            <p>¿Estas seguro de que deseas eliminar "{{ object.titulo }}"? Está acción no podrá deshacerse.</p>
+        </div>
+        <div class="card-footer">
+            <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
+                <a href="{% url 'noticias:listar_noticia' %}" class="btn btn-secondary mx-2" role="button">Cancelar</a>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
