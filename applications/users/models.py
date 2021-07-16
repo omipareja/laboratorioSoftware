@@ -8,7 +8,7 @@ from .choices import MUNICIPIOS_COLOMBIA
 class User(AbstractBaseUser,PermissionsMixin):
 
     username = models.CharField(max_length=25,unique=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField()
     nombres = models.CharField(max_length=30,blank=True,null=True)
     apellidos = models.CharField(max_length=30,blank=True,null=True)
     fecha_nacimiento = models.DateField(blank=True,null=True)
