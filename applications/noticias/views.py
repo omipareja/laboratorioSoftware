@@ -11,7 +11,7 @@ class CrearNoticiaView(CreateView):
     template_name = 'crear_noticias.html'
     model = Noticias
     form_class = CrearNoticiaForm
-    success_url =  reverse_lazy('home:index')
+    success_url =  reverse_lazy('noticias:listar_noticia')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

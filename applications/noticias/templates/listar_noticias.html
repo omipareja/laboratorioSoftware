@@ -1,28 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    <table>
-  <tr>
-    <th >Titulo</th>
-    <th>Autor</th>
-    <th>Descripcion</th>
-    <th>Editar</th>
-    <th>Eliminar</th>
-  </tr>
-  {% for noticia in noticias %}
-      <tr>
-        <td>{{ noticia.titulo  }}</td>
-        <td>{{ noticia.autor.nombres }}</td>
-        <td>{{ noticia.descripcion | truncatechars:30 }}</td>
-        <td><a href="{% url 'noticias:actualizar_noticia' noticia.pk %}">Editar</a></td>
-        <td><a href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a></td>
-      </tr>
-  {% endfor %}
+{% extends 'base.html' %}
 
-    </table>
-</body>
-</html>
+{% block title %} <title>Lista de administradores | Librería UTP</title> {% endblock %}
+
+{% block content %}
+  <div class="container">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Noticias</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+        <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'noticias:crear_noticia' %}">Añadir Noticias</a>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive table-bordered">
+                <table class="table">
+                    <thead class="text-center">
+                        <tr>
+                            <th>Titulo</th>
+                            <th>Autor</th>
+                            <th>Descriocion</th>
+                            <th>Operaciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for noticia in noticias%}
+                      <tr>
+                          <td>{{ noticia.titulo  }}</td>
+                          <td>{{ noticia.autor.nombres }}</td>
+                          <td>{{ noticia.descripcion | truncatechars:30 }}</td>
+                          <td> {% if a.nivel_accesibilidad == 1 %} Cliente {% else %} Administrador {% endif %}</td>
+                          <td>
+                            <div role="group" class="btn-group d-lg-flex">
+                                <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
+                                <a class="btn btn-primary" role="button" style="margin-left: 10px;" href="{% url 'noticias:actualizar_noticia' noticia.pk %}">Actualizar</a>
+                            </div>
+                          </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+  </div>
+
+{% endblock %}

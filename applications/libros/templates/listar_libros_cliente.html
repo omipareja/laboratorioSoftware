@@ -25,7 +25,7 @@
             {% for libro in libros %}
                 <div class="col col-lg-3 col-md-4 col-sm-6 product terror">
                     <a href="#">
-                        <img class="img-fluid" src="{{libro.portada.url}}">
+                        <img  src="{{libro.portada.url}}" style="width: 300px"; height="300px";>
                         <h4>{{libro.titulo}}</h4>
                         <h5>{{libro.autor}}</h5>
                         <h6>ISBN {{libro.isbn}}</h6>

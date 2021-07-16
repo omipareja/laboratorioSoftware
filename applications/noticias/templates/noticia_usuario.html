@@ -24,7 +24,7 @@
                     </div>
                     <div class="row articles">
                         {% for noticia in noticias %}
-                            <div class="col-sm-6 col-md-4 item"><a href="#"><img class="img-fluid" src="{{ noticia.imagen.url }}" width="300px" /></a>
+                            <div class="col-sm-6 col-md-4 item"><a href="#"><img style="width: 250px;height: 250px;" src="{{ noticia.imagen.url }}" width="300px" /></a>
                                 <h3 class="name">{{ noticia.titulo }}</h3>
                                 <p class="description">{{ noticia.descripcion | truncatechars:60 }}</p><a class="action" href="{% url 'noticias:detalle_noticia' noticia.pk %}"><i class="fa fa-arrow-circle-right"></i></a>
                             </div>
