@@ -57,17 +57,20 @@
                     <h3>Stock: {{libro.stock}}</h3>
                 </div>
                 <div class="col-sm-8 text-end">
-                    <div class="col-md-6">
+                    {% if request.user.nivel_accesibilidad %}
+                        <div class="col-md-6">
                         <form method="post" action="{% url 'compras:añadir_carro' libro.pk %}">{% csrf_token %}
                             <button class="btn btn-primary mx-2" role="button" type="submit">Agregar al carrito</button>
                         </form>
-                    </div>
+                        </div>
                     <br>
                     <div class="col-md-6">
                         <form method="post" action="{% url 'compras:crear_reserva' libro.pk %}">{% csrf_token %}
                             <button class="btn btn-primary" role="button" >Reservar</button>
                         </form>
                     </div>
+                    {% endif %}
+
                 </div>
             </div>
         </div>
