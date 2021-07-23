@@ -92,7 +92,7 @@ class CrearCateoria(CreateView):
     template_name = 'crear_categoria.html'
     model = Category
     form_class = CreateCategoryForm
-    success_url = reverse_lazy('home:index')
+    success_url = reverse_lazy('libros:list_libro')
 
     @method_decorator(csrf_exempt)
     def dispatch(self, request, *args, **kwargs):

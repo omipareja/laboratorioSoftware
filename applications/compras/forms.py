@@ -18,7 +18,7 @@ class MetodoPago(forms.Form):
         required=True,
         widget=forms.TextInput(
             attrs={
-                'placeholder':'metodo de pago',
+                'placeholder':'Ingresa el número de la tarjeta',
                 'class': 'form-control',
                 'autocomplete': 'off',
             }

@@ -18,6 +18,7 @@ class CrearTarjetaForm(forms.ModelForm):
 
         model=Tarjeta
         fields = (
+            'franquicia',
             'numero',
             'fecha_vencimiento',
             'cvv',
@@ -35,6 +36,13 @@ class CrearTarjetaForm(forms.ModelForm):
                 attrs={
                     'class':'form-control',
                     'placeholder':'Ingresa el código cvv',
+                    'required': 'True'
+                }
+            ),
+            'franquicia': forms.Select(
+
+                attrs={
+                    'class': 'form-control',
                     'required': 'True'
                 }
             ),

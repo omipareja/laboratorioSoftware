@@ -4,7 +4,7 @@ from model_utils.models import TimeStampedModel
 from applications.users.models import User
 
 class Noticias(TimeStampedModel):
-    titulo = models.CharField(max_length=50)
+    titulo = models.CharField(max_length=60)
     autor = models.ForeignKey(User,on_delete=models.CASCADE)
     genero = models.CharField(max_length=30)
     idioma = models.CharField(max_length=30)

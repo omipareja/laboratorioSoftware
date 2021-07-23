@@ -2,6 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chateando | Librería UTP</title>
 <style>
 body {
   margin: 0 auto;
@@ -56,14 +57,9 @@ body {
 </head>
 <body>
 
-<h2>{{room}} - DjChat</h2>
+<h2>{{room}}</h2> <a role="button" href="{% url 'home:index' %}">Volver al Inicio</a>
 
 <div id="display">
-
-<!-- <div class="container darker">
-  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-  <span class="time-left">20th, April 2021</span>
-</div> -->
 
 </div>
 
@@ -131,7 +127,7 @@ setInterval(function(){
         <input type="hidden" name="username" id="username" value="{{username}}"/>
         <input type="hidden" name="room_id" id="room_id" value="{{room_details.id}}"/>
         <input type="text" name="message" id="message" width="100px" />
-        <input type="submit" value="Send">
+        <input type="submit" value="Enviar mensaje">
     </form>
 </div>
 

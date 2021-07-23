@@ -16,28 +16,28 @@ class CrearNoticiaForm(forms.ModelForm):
         widgets = {
             'titulo':forms.TextInput(
                 attrs = {
-                    'placeholder':'titulo',
+                    'placeholder':'Ingresa un título',
                     'class':'form-control',
                     'requires':True
                 }
             ),
             'genero':forms.TextInput(
                 attrs = {
-                    'placeholder': 'genero',
+                    'placeholder': 'Ingresa un género',
                     'class': 'form-control',
                     'requires': True
                 }
             ),
             'idioma': forms.TextInput(
                 attrs={
-                    'placeholder': 'idioma',
+                    'placeholder': 'Ingresa un idioma',
                     'class': 'form-control',
                     'requires': True
                 }
             ),
             'descripcion': forms.Textarea(
                 attrs={
-                    'placeholder': 'Descripcion',
+                    'placeholder': 'Ingresa el contenido de la noticia',
                     'class': 'form-control',
                     'requires': True
                 }

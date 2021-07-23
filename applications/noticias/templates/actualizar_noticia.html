@@ -11,31 +11,36 @@
 <div class="container mt-auto mb-auto">
     <div class="card">
         <div class="card-header text-center">
-            <h1>Actualizar noticia</h1>
+            <h1>Actualizar Noticia</h1>
         </div>
         <div class="card-body">
             <form method="POST" enctype="multipart/form-data"> {% csrf_token %}
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Titulo</label>
-                                {{ form.titulo }}
-                                <label>Genero</label>
-                                {{ form.genero }}
-                            </div>
-                            <div class="col-md-6">
-                                <label>Idioma</label>
-                                {{ form.idioma }}
-
-                                <br>
-                                <label>Imagen</label>
-                                {{ form.imagen }}
-                            </div>
-                            <div class="row">
-                                <label>Decripcion</label>
-                                {{ form.descripcion }}
-                            </div>
-                        </div>
-                <div class="text-center col-12"><button class="btn btn-primary" type="submit">Crear libro</button></div>
+                <div class="row g-2">
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_titulo" class="form-label">Título</label>
+                        {{ form.titulo }}
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_genero" class="form-label">Género</label>
+                        {{ form.genero }}
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_idioma" class="form-label">Idioma</label>
+                        {{ form.idioma }}
+                    </div>
+                    <div class="form-group col-sm-5 mx-auto">
+                        <label for="id_imagen" class="form-label">Imagen</label> <br>
+                        {{ form.imagen }}
+                    </div>
+                    <div class="form-group col-sm-11 mx-auto">
+                        <label for="id_descripcion" class="form-label">Descripción</label> 
+                        {{ form.descripcion }}
+                    </div>
+                    <div class="text-center col-12">
+                        <a href="{% url 'noticias:listar_noticia' %}" class="btn btn-danger mx-2" role="button">Cancelar</a>
+                        <button class="btn btn-primary" type="submit">Actualizar noticia</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>

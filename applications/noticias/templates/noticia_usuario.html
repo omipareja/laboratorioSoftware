@@ -4,52 +4,62 @@
 
 {% block title %} <title>Noticias | Librería UTP </title> {% endblock %}
 
-{% block imports %} 
-
-<link rel="stylesheet" href="{% static 'assets/fonts/font-awesome.min.css' %}">
-<link rel="stylesheet" href="{% static 'assets/fonts/fontawesome5-overrides.min.css' %}">
-<link rel="stylesheet" href="{% static 'assets/css/Article-List.css' %}">
-
-{% endblock %}
-
 {% block content %}
 
 <div class="container">
-    <div class="row">
+    <div class="row mt-3 mb-2">
         <div class="col">
-            <section class="article-list">
-                <div class="container">
-                    <div class="intro mt-3 mb-3">
-                        <h2 class="text-center" style="margin-bottom: 0px;">Últimas noticias</h2>
-                    </div>
-                    <div class="row articles">
-                        {% for noticia in noticias %}
-                            <div class="col-sm-6 col-md-4 item"><a href="#"><img style="width: 250px;height: 250px;" src="{{ noticia.imagen.url }}" width="300px" /></a>
-                                <h3 class="name">{{ noticia.titulo }}</h3>
-                                <p class="description">{{ noticia.descripcion | truncatechars:60 }}</p><a class="action" href="{% url 'noticias:detalle_noticia' noticia.pk %}"><i class="fa fa-arrow-circle-right"></i></a>
-                            </div>
-                        {% endfor %}
+            <h1 class="text-center">Últimas Noticias</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for noticia in noticias %}
+            <div class="col-sm-6 col-md-4">
+                <div class="row text-center">
+                    <div class="col"><img class="img-fluid mt-2" src="{{ noticia.imagen.url }}"/></div>
+                </div>
+                <div class="row my-2">
+                    <div class="col">
+                        <h4 class="text-center">{{ noticia.titulo }}</h4>
                     </div>
                 </div>
-            </section>
+                <div class="row">
+                    <div class="col">
+                        <p>{{ noticia.descripcion | truncatechars:80 }}</p>
+                    </div>
+                </div>
+                <div class="row text-center">
+                    <div class="col"><a class="btn btn-primary my-2" role="button" href="{% url 'noticias:detalle_noticia' noticia.pk %}">Leer más</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="container text-center mt-2">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                        {% endif %}
+                        {% for pagina in paginator.page_range %}
+                            {% ifequal pagina page_obj.number  %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+                            {% endifequal %}
+
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col d-flex justify-content-center">
-            <nav>
-                <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Previous"><span aria-hidden="true">«</span></a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">4</a></li>
-                    <li class="page-item"><a class="page-link" href="#">5</a></li>
-                    <li class="page-item"><a class="page-link" href="#" aria-label="Next"><span aria-hidden="true">»</span></a></li>
-                </ul>
-            </nav>
-        </div>
-    </div>
 </div>
 
 {% endblock %}

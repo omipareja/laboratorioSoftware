@@ -61,7 +61,7 @@ class CarroCompraView(FormView):
         if tar == True:
             tar2 = Tarjeta.objects.get(numero=tarjeta,usuario=usuario)
         if tar == False:
-            messages.error(self.request, 'Tarjeta invalida,no coincide con las registradas')
+            messages.error(self.request, 'Tarjeta invalida, no coincide con ninguna de las registradas. Por favor verifica e intentalo de nuevo.')
             return HttpResponseRedirect(reverse('compras:mostrar_carro'))
         total_cobrar = int(Carrito.objects.total_cobrar(self.request.user))
         saldo_tarjeta = tar2.saldo
@@ -71,7 +71,7 @@ class CarroCompraView(FormView):
                 procesar_venta(self,usuario=usuario,total_cobrar=total_cobrar,tarjeta=tar2)
 
             else:
-                messages.error(self.request, 'Saldo insuficiente')
+                messages.error(self.request, 'No tienes suficiente saldo')
                 return HttpResponseRedirect(reverse('compras:mostrar_carro'))
 
         return super(CarroCompraView, self).form_valid(form)

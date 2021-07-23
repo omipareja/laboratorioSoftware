@@ -1,15 +1,15 @@
 {% load static %}
 
 <nav class="navbar navbar-light navbar-expand-md main-nav">
-    <div class="container-fluid"><a class="navbar-brand" href="#">Librería UTP</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+    <div class="container-fluid"><a class="navbar-brand" href="{% url 'home:index' %}">Librería UTP</a><button data-bs-toggle="collapse" data-bs-target="#navcol-1" class="navbar-toggler"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navcol-1">
             <ul class="navbar-nav text-center me-auto">
                 <li class="nav-item"><a class="nav-link {% if currentUrl == 'inicio' %} active {% endif %}" href="{% url 'home:index' %}"><i class="fas fa-home"></i> Inicio</a></li>
                 <li class="nav-item"><a class="nav-link {% if currentUrl == 'catalogo' %} active {% endif %}" href="{% url 'libros:catalogo' %}"><i class="fas fa-book"></i> Catálogo</a></li>
                 <li class="nav-item"><a class="nav-link {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'noticias:mostrar_noticia' %}"><i class="far fa-newspaper"></i> Noticias</a></li>
-                <li class="nav-item"><a class="nav-link {% if currentUrl == 'contacto' %} active {% endif %}" href="{% url 'home:contacto' %}"><i class="fas fa-phone"></i> Contacto</a></li>
                 {% if not user.is_anonymous %}
-                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'chat' %} active {% endif %} disabled" href="#"><i class="far fa-comment-alt"></i> Chat<br /></a></li>
+                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'chat' %} active {% endif %}" href="{% url 'salas:home' %}"><i class="far fa-comment-alt"></i> Chat<br /></a></li>
+                    <li class="nav-item"><a class="nav-link {% if currentUrl == 'noticias' %} active {% endif %}" href="{% url 'compras:mostrar_carro' %}"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
                 {% endif %}
             </ul>
             <div class="container d-flex justify-content-center align-items-center main-buttons" style="width: 210px;padding: 0;">
@@ -32,12 +32,12 @@
                                     <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Administrar usuarios</a>
                                 {% else %}
                                     {% if user.nivel_accesibilidad == 2 %}
-                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Compras pendientes</a>
+                                        <a class="dropdown-item" href="{% url 'users:listar-admin' %}">Compras pendientes</a>
                                         <a class="dropdown-item" href="{% url 'libros:list_libro' %}">Inventario de libros</a>
                                         <a class="dropdown-item" href="{% url 'noticias:listar_noticia' %}">Noticias publicadas</a>
                                     {% else %}
-                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Mis compras</a>
-                                        <a class="dropdown-item disabled" href="{% url 'users:listar-admin' %}">Mis reservas</a>
+                                        <a class="dropdown-item" href="{% url 'compras:listar_compras' %}">Mis compras</a>
+                                        <a class="dropdown-item" href="{% url 'compras:listar_reserva' %}">Mis reservas</a>
                                         <a class="dropdown-item" href="{% url 'tarjetas:list_tarjeta' %}">Mis tarjetas</a>
                                     {% endif %}
                                 {% endif %}

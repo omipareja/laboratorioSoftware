@@ -1,39 +1,93 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-    {% for compra in compras %}
-        <h3>Fecha : {{ compra.fecha_compra }}</h3>
-        <p>Estado: {{ compra.cancelado }}</p>
-        {% for c in compra.compra_detalle.all %}
-            <ul>
-                <li>{{ c.producto.titulo }}
-                    <ul>
-                        <li>cantidad: {{ c.cantidad }}</li>
-                        <li>valor unitario: {{ c.precio_compra }}</li>
+{% extends 'base.html' %}
 
-                    </ul>
-                </li>
-            </ul>
-            {% if compra.cancelado != 'Devolucion'  %}
-                <form method="post" action="">
-                    <a href="{% url 'compras:nueva_devolucion' c.pk %}" type="button" >Devolver Producto</a>
-                </form>
-            {% endif %} 
+{% block title %} <title>Mis compras | Librería UTP</title> {% endblock %}
 
+{% block content %}
+
+<div class="container g-2">
+    <div class="row text-center my-2">
+        <div class="col">
+            <h1>Mis compras</h1>
+        </div>
+    </div>
+    {% if compras %}
+        {% for compra in compras %}
+        <div class="row">
+            <div class="col" style="border-width: 1px;border-style: solid;">
+                <h2>{{ compra.fecha_compra }}</h2>
+                <h2>Estado: {{ compra.cancelado }}</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="text-center align-items-center">
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in compra.compra_detalle.all %}
+                                <tr>
+                                    <td>{{ c.producto.titulo }}</td>
+                                    <td class="text-center">{{ c.cantidad }}</td>
+                                    <td class="text-center">{{ c.precio_compra }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th class="table-active text-end">Total</th>
+                                <td class="text-center">{{ compra.monto }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="text-end mb-2">
+                    {% if compra.cancelado != 'Cancelado' %}
+                        <a class="btn btn-danger mx-1" role="button" href="{% url 'compras:cancelar_compra' compra.pk %}">Cancelar</a>
+                    {% endif %}
+                    {% if compra.cancelado != 'Devolucion'  %}
+                        <a class="btn btn-primary mx-1" role="button" href="{% url 'compras:nueva_devolucion' compra.pk %}">Devolver</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
         {% endfor %}
-        <h2>Valor Total: {{ compra.monto }}</h2>
-        {% if compra.cancelado != 'Cancelado' %}
-            <form method="post" action="{% url 'compras:cancelar_compra' compra.pk %}">{% csrf_token %}
-                <button type="submit">Cancelar Compra</button>
-            </form>
+    {% else %}
+        <div role="alert" class="alert alert-info text-center">
+            <span>
+                <strong>¡Aún no has hecho ninguna compra!</strong><br />
+            </span>
+        </div>
+    {% endif %}
 
-        {% endif %}
-        <hr>
-    {% endfor %}
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="container text-center mt-2">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                        {% endif %}
+                        {% for pagina in paginator.page_range %}
+                            {% ifequal pagina page_obj.number  %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+                            {% endifequal %}
 
-</body>
-</html>
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,78 +1,79 @@
 {% extends 'base.html' %}
-{% load static %}
-{% load widget_tweaks %}
 
-{% block title %} <title>Lista de administradores | Librería UTP</title> {% endblock %}
-
-{% block css %} <link rel="stylesheet" href="{% static 'assets/css/carrito.css' %}"> {% endblock %}
+{% block title %} <title>Carrito de compras | Librería UTP</title> {% endblock %}
 
 {% block content %}
 
-{% endblock %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-
-</head>
-<body>
-    <table class="default">
-      <tr>
-        <td>Producto</td>
-        <td>Precio</td>
-        <td>Cantidad</td>
-        <td>Restar</td>
-        <td>Añadir</td>
-        <td>Eliminar</td>
-        <td></td>
-      </tr>
-      {% for p in productos %}
-          <tr>
-            <td>{{p.productos.titulo}}</td>
-            <td>{{p.productos.precio}}</td>
-            <td>{{p.cantidad}}</td>
-            <td>
-                <form method="post" action="{% url 'compras:restar_producto' p.pk  %}"> {% csrf_token %}
-                    <button type="submit">Restar</button>
-                </form>
-            </td>
-              <td>
-                <form method="post" action="{% url 'compras:sumar_producto' p.pk  %}"> {% csrf_token %}
-                    <button type="submit">Sumar</button>
-                </form>
-            </td>
-              <td>
-                <form method="post" action="{% url 'compras:eliminar_producto' p.pk  %}"> {% csrf_token %}
-                    <button type="submit">Eliminar</button>
-                </form>
-            </td>
-          </tr>
-      {% empty %}
-          <p>No  tiene productos en el carro de compra</p>
-      {% endfor %}
-    </table>
-    <h2>El total a pagar es: {{ total }}</h2>
-    <form method="post" action="{% url 'compras:vaciar_carro' %}"> {% csrf_token %}
-        <button type="submit">Vaciar carro</button>
-    </form>
-    <br>
-    <form method="post"> {% csrf_token %}
-        <p>Ingrese el numero de tarjeta se validara con las registradas</p>
-        {{ form.metodo }}
-        <button type="submit">Pagar</button>
-    </form>
-    <!-------Error de la tarjeta no existe ----->
-    {% if messages %}
-    <ul class="messages">
-        {% for message in messages %}
-        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-        {% endfor %}
-    </ul>
+<div class="container my-3">
+    <div class="row mb-2">
+        <div class="col">
+            <h1 class="text-center">Carrito de Compras</h1>
+        </div>
+    </div>
+    {% if productos %}
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Producto</th>
+                                <th class="text-center">Precio Unitario</th>
+                                <th class="text-center">Cantidad</th>
+                                <th class="text-center">Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in productos %}
+                                <tr>
+                                    <td>{{p.productos.titulo}}</td>
+                                    <td class="text-center">{{p.productos.precio}}</td>
+                                    <td class="text-center">{{p.cantidad}}</td>
+                                    <td class="text-center">
+                                        <a class="btn btn-warning" role="button" href="{% url 'compras:sumar_producto' p.pk  %}"><i class="fas fa-plus"></i></a>
+                                        <a class="btn btn-primary mx-2" role="button" href="{% url 'compras:restar_producto' p.pk  %}"><i class="fas fa-minus"></i></a>
+                                        <a class="btn btn-danger" role="button" href="{% url 'compras:eliminar_producto' p.pk  %}"><i class="far fa-trash-alt"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <form action="POST">
+            <div class="row">
+                <div class="col">
+                    <p>Para procesar tu pedido, por favor ingresa tú número de tarjeta:</p>
+                    {{ form.metodo }}
+                </div>
+                <div class="col text-end d-lg-flex justify-content-lg-end align-items-lg-center">
+                    <h2>Total: ${{ total }}</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-end my-2">
+                    <a class="btn btn-danger mx-2" role="button" href="{% url 'compras:vaciar_carro' %}">Vaciar carrito</a>
+                    <button class="btn btn-primary" type="submit">Pagar</button>
+                </div>
+            </div>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+            <div class="row">
+                <div class="col">
+                    <div role="alert" class="alert alert-warning text-center"><span><strong>{{ message }}</strong><br /></span></div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% else %}
+        <div class="row">
+            <div class="col">
+                <div role="alert" class="alert alert-info text-center"><span><strong>¡Aún no has agregado articulos al carrito!</strong><br /></span></div>
+            </div>
+        </div> 
     {% endif %}
-    <!----Fin bloque--->
+</div>
 
-
-
-
-</body>
-</html>
+{% endblock %}

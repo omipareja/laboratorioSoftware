@@ -15,3 +15,71 @@
 
 </body>
 </html>
+
+{% extends 'base.html' %}
+
+{% block title %} <title>Mis compras | Librería UTP</title> {% endblock %}
+
+{% block content %}
+
+<div class="container g-2">
+    <div class="row text-center my-2">
+        <div class="col">
+            <h1>Mis devoluciones</h1>
+        </div>
+    </div>
+    {% if devoluciones %}
+        {% for devolucion in devoluciones %}
+        <div class="row">
+            <div class="col" style="border-width: 1px;border-style: solid;">
+                <h2>{{ compra.fecha_compra }}</h2>
+                <h2>Estado: {{ compra.cancelado }}</h2>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr class="text-center align-items-center">
+                                <th>Producto</th>
+                                <th>Cantidad</th>
+                                <th>Precio Unitario</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for c in compra.compra_detalle.all %}
+                                <tr>
+                                    <td>{{ c.producto.titulo }}</td>
+                                    <td class="text-center">{{ c.cantidad }}</td>
+                                    <td class="text-center">{{ c.precio_compra }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <th class="table-active text-end">Total</th>
+                                <td class="text-center">{{ compra.monto }}</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="text-end mb-2">
+                    {% if compra.cancelado != 'Cancelado' %}
+                        <a class="btn btn-danger mx-1" role="button" href="{% url 'compras:cancelar_compra' compra.pk %}">Cancelar</a>
+                    {% endif %}
+                    {% if compra.cancelado != 'Devolucion'  %}
+                        <a class="btn btn-primary mx-1" role="button" href="{% url 'compras:nueva_devolucion' compra.pk %}">Devolver</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div role="alert" class="alert alert-info text-center">
+            <span>
+                <strong>¡Aún no has hecho ninguna reserva!</strong><br />
+            </span>
+        </div>
+    {% endif %}
+</div>
+
+{% endblock %}

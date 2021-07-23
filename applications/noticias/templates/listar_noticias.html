@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} <title>Lista de administradores | Librería UTP</title> {% endblock %}
+{% block title %} <title>Lista de noticias | Librería UTP</title> {% endblock %}
 
 {% block content %}
   <div class="container">
@@ -19,38 +19,70 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <div class="table-responsive table-bordered">
-                <table class="table">
-                    <thead class="text-center">
+    {% if noticias %}
+        <div class="row">
+            <div class="col">
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Titulo</th>
+                                <th>Autor</th>
+                                <th>Descripción</th>
+                                <th>Operaciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for noticia in noticias%}
                         <tr>
-                            <th>Titulo</th>
-                            <th>Autor</th>
-                            <th>Descriocion</th>
-                            <th>Operaciones</th>
+                            <td class="text-center">{{ noticia.titulo  }}</td>
+                            <td class="text-center">{{ noticia.autor.nombres }}</td>
+                            <td>{{ noticia.descripcion | truncatechars:30 }}</td>
+                            <td>
+                                <div role="group" class="btn-group d-lg-flex">
+                                    <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
+                                    <a class="btn btn-primary" role="button" style="margin-left: 10px;" href="{% url 'noticias:actualizar_noticia' noticia.pk %}">Actualizar</a>
+                                </div>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                      {% for noticia in noticias%}
-                      <tr>
-                          <td>{{ noticia.titulo  }}</td>
-                          <td>{{ noticia.autor.nombres }}</td>
-                          <td>{{ noticia.descripcion | truncatechars:30 }}</td>
-                          <td> {% if a.nivel_accesibilidad == 1 %} Cliente {% else %} Administrador {% endif %}</td>
-                          <td>
-                            <div role="group" class="btn-group d-lg-flex">
-                                <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'noticias:eliminar_noticia' noticia.pk %}">Eliminar</a>
-                                <a class="btn btn-primary" role="button" style="margin-left: 10px;" href="{% url 'noticias:actualizar_noticia' noticia.pk %}">Actualizar</a>
-                            </div>
-                          </td>
-                      </tr>
-                      {% endfor %}
-                    </tbody>
-                </table>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="container text-center mt-2">
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination justify-content-center">
+                            {% if page_obj.has_previous %}
+                                <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atrás</a></li>
+                            {% endif %}
+                            {% for pagina in paginator.page_range %}
+                                {% ifequal pagina page_obj.number  %}
+                                    <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
+                                    {% else %}
+                                    <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+                                {% endifequal %}
+
+                            {% endfor %}
+                            {% if page_obj.has_next %}
+                                <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div role="alert" class="alert alert-info text-center">
+            <span>
+                <strong>¡Aún no has publicado ninguna noticia!</strong><br />
+            </span>
+        </div>
+    {% endif %}
+
   </div>
 
 {% endblock %}

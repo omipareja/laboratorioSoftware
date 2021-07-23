@@ -4,79 +4,82 @@
 
 {% block content %}
 <div class="container">
-<div class="row">
-    <div class="col">
-        <h1 class="text-center">Tarjetas registradas</h1>
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-    <a class="btn btn-danger" role="button" href="{% url 'tarjetas:add_tarjeta'%}">Añadir tarjeta</a>
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">Tarjetas registradas</h1>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-4">
-            <p></p>
+        <a class="btn btn-danger" role="button" href="{% url 'tarjetas:add_tarjeta'%}">Añadir tarjeta</a>
         </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col">
-        <div class="table-responsive table-bordered">
-            <table class="table">
-                <thead class="text-center">
-                    <tr>
-                        <th>Número</th>
-                        <th>Fecha de vencimiento</th>
-                        <th>Saldo</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody class="text-center">
-                    {% for tarjeta in tarjetas %}
-                    <tr>
-                        <td>{{ tarjeta.numero }}</td>
-                        <td>{{ tarjeta.fecha_vencimiento }}</td>
-                        <td>${{ tarjeta.saldo }}</td>
-                        <td>
-                            <div role="group" class="btn-group d-lg-flex">
-                                <a class="btn btn-primary" role="button" href="{% url 'tarjetas:aumentar_Saldo' tarjeta.pk %}">Aumentar saldo</a>
-                                <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'tarjetas:eliminar_tarjeta' tarjeta.pk %}">Eliminar</a>
-                            </div>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-    <div class="row">
-        <div class="col-md-5">
-        </div>
-        <div class="col-md-5">
-            <div class="container text-center mt-2">
-                <nav aria-label="Page navigation example">
-                  <ul class="pagination">
-                      {% if page_obj.has_previous %}
-                          <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
-                      {% endif %}
-                      {% for pagina in paginator.page_range %}
-                          {% ifequal pagina page_obj.number  %}
-                              <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
-                              {% else %}
-                              <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
-                          {% endifequal %}
-
-                      {% endfor %}
-                      {% if page_obj.has_next %}
-                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
-                       {% endif %}
-                  </ul>
-                </nav>
+        <div class="row">
+            <div class="col-md-4">
+                <p></p>
             </div>
         </div>
-        <div class="col-md-2">
+    </div>
+    <div class="row">
+        <div class="col">
+            {% if tarjetas %}
+                <div class="table-responsive table-bordered">
+                    <table class="table">
+                        <thead class="text-center">
+                            <tr>
+                                <th>Número</th>
+                                <th>Fecha de vencimiento</th>
+                                <th>Saldo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center">
+                            {% for tarjeta in tarjetas %}
+                            <tr>
+                                <td>{{ tarjeta.numero }}</td>
+                                <td>{{ tarjeta.fecha_vencimiento }}</td>
+                                <td>${{ tarjeta.saldo }}</td>
+                                <td>
+                                    <div role="group" class="btn-group d-lg-flex">
+                                        <a class="btn btn-primary" role="button" href="{% url 'tarjetas:aumentar_Saldo' tarjeta.pk %}">Aumentar saldo</a>
+                                        <a class="btn btn-danger" role="button" style="margin-left: 10px;" href="{% url 'tarjetas:eliminar_tarjeta' tarjeta.pk %}">Eliminar</a>
+                                    </div>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div role="alert" class="alert alert-info text-center">
+                    <span>
+                        <strong>¡Aún no has agregado ninguna tarjeta!</strong><br />
+                    </span>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="container text-center mt-2">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{page_obj.previous_page_number}}">Atras</a></li>
+                        {% endif %}
+                        {% for pagina in paginator.page_range %}
+                            {% ifequal pagina page_obj.number  %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ pagina }}</a></li>
+                                {% else %}
+                                <li class="page-item"><a class="page-link" href="?page={{ pagina }}">{{ pagina }}</a></li>
+                            {% endifequal %}
 
+                        {% endfor %}
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{ page_obj.next_page_number }}">Siguiente</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
         </div>
     </div>
 </div>
