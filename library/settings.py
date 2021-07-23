@@ -12,6 +12,10 @@ import library.db as db
 import dj_database_url
 from decouple import config
 
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -176,3 +180,9 @@ DOMAIN = 'libraryutp.herokuapp.com'
 STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+cloudinary.config(
+  cloud_name = "daplasrzs",
+  api_key = "784419997455925",
+  api_secret = "Dr0QJ_-bd2cjBvMtZ0Ctxh16YHc",
+)

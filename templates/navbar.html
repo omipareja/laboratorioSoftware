@@ -21,7 +21,7 @@
                         <div class="dropdown">
                             <a aria-expanded="false" data-bs-toggle="dropdown" class="dropdown-toggle no-estilo" href="#">
                                 {% if user.avatar %}
-                                    <img src="/media/{{user.avatar}}" width="40" height="40" class="rounded-circle">
+                                    <img src="{{user.avatar.url}}" width="40" height="40" class="rounded-circle">
                                 {% else %}
                                     <img src="{% static 'img/default.png' %}" width="40" height="40" class="rounded-circle">
                                 {% endif %}

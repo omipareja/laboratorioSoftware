@@ -46,7 +46,7 @@ class AñadirCarrito(View):
         if not created:
             obj.cantidad = obj.cantidad + count
             obj.save()
-        return HttpResponseRedirect(reverse('libros:libro_cliente'))
+        return HttpResponseRedirect(reverse('compras:mostrar_carro'))
 
 class CarroCompraView(FormView):
     template_name = 'carro_compras.html'
@@ -204,7 +204,7 @@ class AñadirReserva(View):
 
 
 
-        return HttpResponseRedirect(reverse('libros:libro_cliente'))
+        return HttpResponseRedirect(reverse('compras:listar_reserva'))
 
 class ListarReserva(FormView):
     template_name = 'listar_reserva.html'

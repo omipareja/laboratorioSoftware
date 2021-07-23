@@ -30,9 +30,16 @@
                                     <td class="text-center">{{p.productos.precio}}</td>
                                     <td class="text-center">{{p.cantidad}}</td>
                                     <td class="text-center">
-                                        <a class="btn btn-warning" role="button" href="{% url 'compras:sumar_producto' p.pk  %}"><i class="fas fa-plus"></i></a>
-                                        <a class="btn btn-primary mx-2" role="button" href="{% url 'compras:restar_producto' p.pk  %}"><i class="fas fa-minus"></i></a>
-                                        <a class="btn btn-danger" role="button" href="{% url 'compras:eliminar_producto' p.pk  %}"><i class="far fa-trash-alt"></i></a>
+                                        <form method="post" action="{% url 'compras:sumar_producto' p.pk  %}"  style="display:inline;">
+                                            <button class="btn btn-warning" role="button" type="submit"><i class="fas fa-plus"></i></button>{% csrf_token %}
+                                        </form>
+                                        <form method="post" action="{% url 'compras:restar_producto' p.pk  %}" style="display:inline;" >{% csrf_token %}
+                                            <button class="btn btn-primary mx-2" role="button"  type="submit"><i class="fas fa-minus"></i></button>
+                                        </form>
+                                        <form method="post" action="{% url 'compras:eliminar_producto' p.pk  %}" style="display:inline;" >{% csrf_token %}
+                                            <button class="btn btn-danger" role="button" type="submit"><i class="far fa-trash-alt"></i></button>
+                                        </form>
+
                                     </td>
                                 </tr>
                             {% endfor %}
@@ -41,23 +48,25 @@
                 </div>
             </div>
         </div>
-        <form action="POST">
             <div class="row">
-                <div class="col">
-                    <p>Para procesar tu pedido, por favor ingresa tú número de tarjeta:</p>
-                    {{ form.metodo }}
-                </div>
-                <div class="col text-end d-lg-flex justify-content-lg-end align-items-lg-center">
-                    <h2>Total: ${{ total }}</h2>
-                </div>
+                <form method="post" action="{% url 'compras:mostrar_carro'%}">{% csrf_token %}
+                    <div class="col">
+                        <p>Para procesar tu pedido, por favor ingresa tú número de tarjeta:</p>
+                        {{ form.metodo }}
+                    </div>
+                    <div class="col text-end d-lg-flex justify-content-lg-end align-items-lg-center">
+                        <h2>Total: ${{ total }}</h2>
+                    </div>
+                    <button class="btn btn-success mx-2" type="submit">Pagar</button>
+                </form>
             </div>
             <div class="row">
                 <div class="col text-end my-2">
-                    <a class="btn btn-danger mx-2" role="button" href="{% url 'compras:vaciar_carro' %}">Vaciar carrito</a>
-                    <button class="btn btn-primary" type="submit">Pagar</button>
+                    <form method="post" action="{% url 'compras:vaciar_carro' %}"  >{% csrf_token %}
+                        <button class="btn btn-danger mx-2" role="button" type="submit">Vaciar carrito</button>
+                    </form>
                 </div>
             </div>
-        </form>
         {% if messages %}
             {% for message in messages %}
             <div class="row">

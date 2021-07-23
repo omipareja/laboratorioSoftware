@@ -5,6 +5,8 @@ from django.contrib.auth.models import AbstractBaseUser,PermissionsMixin
 from .managers import UserManager
 from applications.libros.models import Category
 from .choices import MUNICIPIOS_COLOMBIA
+from cloudinary.models import CloudinaryField
+
 class User(AbstractBaseUser,PermissionsMixin):
 
     username = models.CharField(max_length=25,unique=True)
@@ -15,7 +17,8 @@ class User(AbstractBaseUser,PermissionsMixin):
     lugar_nacimiento = models.CharField(max_length=60,choices=MUNICIPIOS_COLOMBIA,default='Pereira',blank=True,null=True)
     dni = models.IntegerField(blank=True,null=True)
     categoria = models.ManyToManyField(Category,blank=True)
-    avatar = models.ImageField(upload_to='avatares',blank=True,null=True)
+    #avatar = models.ImageField(upload_to='avatares',blank=True,null=True)
+    avatar = CloudinaryField('avatar',blank=True,null=True)
     nivel_accesibilidad = models.IntegerField()
     token = models.UUIDField(primary_key=False,editable=False,null=True,blank=True)
     #propios de Abstrac

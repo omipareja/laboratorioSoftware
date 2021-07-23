@@ -27,19 +27,39 @@
                     <div class="row">
                         <div class="col text-center">
                             <p>{{ reserva.cantidad }}</p>
-                            <a class="btn btn-primary mx-2" role="button" href="{% url 'compras:disminuir_reserva' reserva.pk %}">Disminuir</a>
-                            <a class="btn btn-primary mx-2" role="button" href="{% url 'compras:aumentar_reserva' reserva.pk %}">Aumentar</a>
+                            <form method="post" action="{% url 'compras:disminuir_reserva' reserva.pk %}" style="display:inline;">{% csrf_token %}
+                                <button class="btn btn-primary mx-2" role="button" type="submit" >Disminuir</button>
+                            </form>
+                            <form method="post" action="{% url 'compras:aumentar_reserva' reserva.pk %}" style="display:inline;">{% csrf_token %}
+                                <button class="btn btn-primary mx-2" role="button" type="submit">Aumentar</button>
+                            </form>
+
                         </div>
                         <div class="col d-lg-flex justify-content-lg-center align-items-lg-center">
                             <h4>Precio unitario: ${{ reserva.productos.precio }}</h4>
                         </div>
                     </div>
                     <div class="row text-end">
-                        <div class="col"><a class="btn btn-danger my-2" role="button" href="{% url 'compras:eliminar_reserva' reserva.pk %}">Eliminar</a></div>
+                        <form method="post" action="{% url 'compras:eliminar_reserva' reserva.pk %}" style="display:inline;">{% csrf_token %}
+                                <button class="btn btn-danger my-2" role="button" type="submit">Eliminar</button>
+                        </form>
+
                     </div>
                 </div>
             </div>
         {% endfor %}
+        <div>
+            <h3>Realizar pago</h3>
+            <h4>Total reserva {{ total }}</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" action="{% url 'compras:listar_reserva' %}" style="display:inline;">{% csrf_token %}
+                        {{ form.metodo }}
+                        <button class="btn btn-success my-2" role="button" type="submit"> pagar </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     {% else %}
         <div role="alert" class="alert alert-info text-center">
             <span>

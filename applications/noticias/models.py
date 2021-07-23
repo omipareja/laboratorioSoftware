@@ -1,6 +1,6 @@
 from django.db import models
 from model_utils.models import TimeStampedModel
-
+from cloudinary.models import CloudinaryField
 from applications.users.models import User
 
 class Noticias(TimeStampedModel):
@@ -9,7 +9,8 @@ class Noticias(TimeStampedModel):
     genero = models.CharField(max_length=30)
     idioma = models.CharField(max_length=30)
     descripcion = models.TextField(max_length=1000)
-    imagen = models.ImageField(upload_to='Noticias',blank=True,null=True)
+    #imagen = models.ImageField(upload_to='Noticias',blank=True,null=True)
+    imagen = CloudinaryField('image',blank=True,null=True)
 
     def __str__(self):
         return self.titulo

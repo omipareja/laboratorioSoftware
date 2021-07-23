@@ -1,6 +1,7 @@
 from django.db import models
 from .choices import ESTADO_LIBRO, LENGUAJES
 from .managers import LibroManager
+from cloudinary.models import CloudinaryField
 # Create your models here.
 
 
@@ -22,7 +23,8 @@ class Libro(models.Model):
     estado = models.CharField(max_length=15,choices=ESTADO_LIBRO,default='nuevo')
     precio = models.FloatField(default=0)
     stock = models.IntegerField(default=0)
-    portada = models.ImageField(upload_to='portadas',blank=True,null=True)
+    #portada = models.ImageField(upload_to='portadas',blank=True,null=True)
+    portada = CloudinaryField('image',blank=True,null=True)
 
 
     objects = LibroManager()

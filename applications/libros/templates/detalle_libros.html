@@ -57,8 +57,17 @@
                     <h3>Stock: {{libro.stock}}</h3>
                 </div>
                 <div class="col-sm-8 text-end">
-                    <a class="btn btn-primary mx-2" role="button" href="{% url 'compras:añadir_carro' libro.pk %}">Agregar al carrito</a>
-                    <a class="btn btn-primary" role="button" href="{% url 'compras:crear_reserva' libro.pk %}">Reservar</a>
+                    <div class="col-md-6">
+                        <form method="post" action="{% url 'compras:añadir_carro' libro.pk %}">{% csrf_token %}
+                            <button class="btn btn-primary mx-2" role="button" type="submit">Agregar al carrito</button>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="col-md-6">
+                        <form method="post" action="{% url 'compras:crear_reserva' libro.pk %}">{% csrf_token %}
+                            <button class="btn btn-primary" role="button" >Reservar</button>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

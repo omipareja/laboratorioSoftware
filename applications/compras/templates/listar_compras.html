@@ -46,7 +46,9 @@
                 </div>
                 <div class="text-end mb-2">
                     {% if compra.cancelado != 'Cancelado' %}
-                        <a class="btn btn-danger mx-1" role="button" href="{% url 'compras:cancelar_compra' compra.pk %}">Cancelar</a>
+                        <form method="post" action="{% url 'compras:cancelar_compra' compra.pk %}" style="display:inline;">{% csrf_token %}
+                            <button class="btn btn-danger my-2" role="button" type="submit"> Cancelar </button>
+                        </form>
                     {% endif %}
                     {% if compra.cancelado != 'Devolucion'  %}
                         <a class="btn btn-primary mx-1" role="button" href="{% url 'compras:nueva_devolucion' compra.pk %}">Devolver</a>

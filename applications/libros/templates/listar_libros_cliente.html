@@ -25,7 +25,12 @@
             {% for libro in libros %}
                 <div class="col col-lg-3 col-md-4 col-sm-6 product terror">
                     <a href="{% url 'libros:detalle_libro' libro.pk %}">
-                        <img class="img-fluid" src="{{libro.portada.url}}">
+                        {% if  libro.portada %}
+                            <img class="img-fluid" src="{{libro.portada.url}}" style="width: 450px; height: 250px;">
+                        {% else %}
+                            <img class="img-fluid" src="{% static 'img/noimage.jpeg' %}" style="width: 450px; height: 250px;">
+                        {% endif %}
+
                         <h4>{{libro.titulo}}</h4>
                         <h5>{{libro.autor}}</h5>
                         <h6>ISBN {{libro.isbn}}</h6>
