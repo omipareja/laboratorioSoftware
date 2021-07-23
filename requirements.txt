@@ -15,4 +15,5 @@ sqlparse==0.4.1
 Unipath==1.1
 whitenoise==5.2.0
 pycountry==20.7.3
+cloudinary==1.26.0
 
