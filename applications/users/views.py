@@ -183,9 +183,9 @@ class ReclutarAdministrador(LoginRequiredMixin,FormView):
 
         try:
             #url local
-            url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
+            #url = self.request.META['HTTP_HOST']#si no esta en producion utilice el request
             #url para producion
-            #url = settings.DOMAIN
+            url = settings.DOMAIN
 
             user.token =  uuid.uuid4()
             user.save()
